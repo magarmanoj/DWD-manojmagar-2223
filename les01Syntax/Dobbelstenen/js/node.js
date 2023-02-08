@@ -22,9 +22,7 @@ aantal deelnemers: ${players.length}
         console.log(`${dice.toString(dice)} (${scores[i]} punten: )`);
     }
 
-    console.log(`\n'%cWINAAR: ',
-    background: yellow;
-    color: red;`);
+    console.log(`\nWINNAAR:`);
     console.log(`${GetWinner(scores, players)}`)
 }
 
@@ -33,12 +31,12 @@ function DiceToString(dice){
     let retval = '';
     for( let d of dice){
         switch (d){
-            case 1: retval += "⚀ "; break;
-            case 2: retval += "⚁ "; break;
-            case 3: retval += "⚂ "; break;
-            case 4: retval += "⚃ "; break;
-            case 5: retval += "⚄ "; break;
-            case 6: retval += "⚅ "; break;
+            case 1: retval += 1; break;
+            case 2: retval += 2; break;
+            case 3: retval += 3; break;
+            case 4: retval += 4; break;
+            case 5: retval += 5; break;
+            case 6: retval += 6; break;
             default: break;
         }
     }
