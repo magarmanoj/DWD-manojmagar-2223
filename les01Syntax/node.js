@@ -22,7 +22,9 @@ aantal deelnemers: ${players.length}
         console.log(`${dice.toString(dice)} (${scores[i]} punten: )`);
     }
 
-    console.log(`\nWINAAR: `);
+    console.log(`\n'%cWINAAR: ',
+    background: yellow;
+    color: red;`);
     console.log(`${GetWinner(scores, players)}`)
 }
 
