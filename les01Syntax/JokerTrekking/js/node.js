@@ -16,11 +16,10 @@ console.log(`
 4 juist: ${getal[i]}`)
 
 const totaalSpeler = 10000;
-for(let i = 0; i < totaalSpeler; i++ ){
-    const trekker = Maht.floor(Math.random)*9999 + 1000;
-
+for (let i = 0; i < totaalSpeler; i++ ) {
+    const trekker = Math.floor(Math.random) * 9999 + 1000;
 }
 
 
-const speler = Maht.floor(Math.random)*9999 + 1000;
+const speler = Math.floor(Math.random) * 9999 + 1000;
 
