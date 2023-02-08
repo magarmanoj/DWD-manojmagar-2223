@@ -7,10 +7,15 @@ function main(){
 
 
     console.log(`
-    DOBBELSTENEN
+DOBBELSTENEN
 ============
+
+
 aantal deelnemers: ${players.length}
-    `);
+    `)
+    
+    
+    
 
     for(let i = 0; i < players.length; i++){
         console.log(`${players[i]} gooit: `);
@@ -23,7 +28,7 @@ aantal deelnemers: ${players.length}
     }
 
     console.log(`\nWINNAAR:`);
-    console.log("%c" + GetWinner(scores, players), "background: yellow; color: black;");
+    console.log("%c" + GetWinner(scores, players), "background: yellow; color: black; font-size: 25px;");
 }
 
 
@@ -31,12 +36,12 @@ function DiceToString(dice){
     let retval = '';
     for( let d of dice){
         switch (d){
-            case 1: retval += "⚀ "; break;
-            case 2: retval += "⚁ "; break;
-            case 3: retval += "⚂ "; break;
-            case 4: retval += "⚃ "; break;
-            case 5: retval += "⚄ "; break;
-            case 6: retval += "⚅ "; break;
+            case 1: retval += '⚀ '; break;
+            case 2: retval += '⚁ '; break;
+            case 3: retval += '⚂ '; break;
+            case 4: retval += '⚃ '; break;
+            case 5: retval += '⚄ '; break;
+            case 6: retval += '⚅ '; break;
             default: break;
         }
     }
