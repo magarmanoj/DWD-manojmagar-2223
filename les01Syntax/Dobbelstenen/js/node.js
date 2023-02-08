@@ -1,9 +1,9 @@
 function main(){
 
-    let rnd = Math.random(7);
+
     const players = ['Magnus', 'Eline', 'Ding', 'Judith', 'Praggna'];
-    let scores = [players.length];
-    let NUM_DICE = 3;
+    const scores = [players.length];
+    const NUM_DICE = 3;
 
 
     console.log(`
@@ -16,14 +16,14 @@ aantal deelnemers: ${players.length}
         console.log(`${players[i]} gooit: `);
         let dice = [NUM_DICE];
         for(let j = 0; j < NUM_DICE; j++){
-            dice[j] = rnd
+            dice[j] = Math.floor(Math.random()*7)+1;
         }
         scores[i] = GetTotal(dice);
-        console.log(`${dice.toString(dice)} (${scores[i]} punten: )`);
+        console.log(`${dice.toString(dice)} (${scores[i]} punten)`);
     }
 
     console.log(`\nWINNAAR:`);
-    console.log(`${GetWinner(scores, players)}`)
+    console.log("%c" + GetWinner(scores, players), "background: yellow; color: black;");
 }
 
 
@@ -31,12 +31,12 @@ function DiceToString(dice){
     let retval = '';
     for( let d of dice){
         switch (d){
-            case 1: retval += 1; break;
-            case 2: retval += 2; break;
-            case 3: retval += 3; break;
-            case 4: retval += 4; break;
-            case 5: retval += 5; break;
-            case 6: retval += 6; break;
+            case 1: retval += "⚀ "; break;
+            case 2: retval += "⚁ "; break;
+            case 3: retval += "⚂ "; break;
+            case 4: retval += "⚃ "; break;
+            case 5: retval += "⚄ "; break;
+            case 6: retval += "⚅ "; break;
             default: break;
         }
     }
