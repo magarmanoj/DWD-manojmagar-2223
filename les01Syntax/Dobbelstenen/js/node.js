@@ -9,25 +9,25 @@ DOBBELSTENEN
 ============
 
 
-aantal deelnemers: ${players.length}`)
-for(let i = 0; i < players.length; i++){
+aantal deelnemers: ${players.length}`);
+for (let i = 0; i < players.length; i++) {
     console.log(`${players[i]} gooit: `);
-    let dice = [NUM_DICE];
-    for(let j = 0; j < NUM_DICE; j++){
-        dice[j] = Math.floor(Math.random()*7)+1;
+    const dice = [NUM_DICE];
+    for (let j = 0; j < NUM_DICE; j++) {
+        dice[j] = Math.floor(Math.random() * 7) + 1;
     }
-    scores[i] = GetTotal(dice);
-    console.log(`${DiceToString(dice)} (${scores[i]} punten)`);
+    scores[i] = getTotal(dice);
+    console.log(`${diceToString(dice)} (${scores[i]} punten)`);
     }
 
-console.log(`\nWINNAAR:`);
-console.log("%c" + GetWinner(scores, players), "background: yellow; color: black; font-size: 25px;");
+console.log('\nWINNAAR:');
+console.log('%c' + getWinner(scores, players), 'background: yellow; color: black; font-size: 25px;');
 
 
-function DiceToString(dice){
+function diceToString(dice) {
     let retval = '';
-    for( let d of dice){
-        switch (d){
+    for (const d of dice) {
+        switch (d) {
             case 1: retval += '⚀ '; break;
             case 2: retval += '⚁ '; break;
             case 3: retval += '⚂ '; break;
@@ -41,21 +41,21 @@ function DiceToString(dice){
 }
 
 
-function GetTotal(dice){
+function getTotal(dice) {
     let total = 0;
-    for(let d of dice){
+    for (const d of dice) {
         total += d;
     }
     return total;
 }
 
-function GetWinner(totals, names){
+function getWinner(totals, names) {
     let winnerIndex = 0;
-    let draw =  false;
-    for(let i = 1; i < totals.length; i++){
-        if(totals[i] == totals[winnerIndex]){
+    let draw = false;
+    for (let i = 1; i < totals.length; i++) {
+        if (totals[i] == totals[winnerIndex]) {
             draw = true;
-        }else if(totals[i] > totals[winnerIndex]){
+        } else if (totals[i] > totals[winnerIndex]) {
             winnerIndex = i;
             draw = false;
         }
