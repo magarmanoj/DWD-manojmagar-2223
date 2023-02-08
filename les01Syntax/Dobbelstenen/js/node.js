@@ -17,7 +17,7 @@ for(let i = 0; i < players.length; i++){
         dice[j] = Math.floor(Math.random()*7)+1;
     }
     scores[i] = GetTotal(dice);
-    console.log(`${dice.toString(dice)} (${scores[i]} punten)`);
+    console.log(`${DiceToString(dice)} (${scores[i]} punten)`);
     }
 
 console.log(`\nWINNAAR:`);

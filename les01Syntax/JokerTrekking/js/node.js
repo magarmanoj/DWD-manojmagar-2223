@@ -1,7 +1,7 @@
 console.log(`
 //trekking 
     
-getrokken getal: ${getal}`)
+getrokken getal: ${trekker}`)
 console.log(`
 //gokken 
     
@@ -14,3 +14,13 @@ console.log(`
 2 juist: ${getal[i]}
 3 juist: ${getal[i]}
 4 juist: ${getal[i]}`)
+
+const totaalSpeler = 10000;
+for(let i = 0; i < totaalSpeler; i++ ){
+    const trekker = Maht.floor(Math.random)*9999 + 1000;
+
+}
+
+
+const speler = Maht.floor(Math.random)*9999 + 1000;
+
