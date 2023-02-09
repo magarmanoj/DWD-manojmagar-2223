@@ -15,8 +15,8 @@ const resultaten = {
 
 for (let i = 0; i < totaalSpeler; i++) {
   const speler = getalGenereren();
-  const gelijk = matchingCijfer(trekken, speler);
-  resultaten[gelijk]++;
+  const count = matchingCijfer(trekken, speler);
+  resultaten[count]++;
 }
 
 
@@ -47,22 +47,30 @@ function getalGenereren() {
 function matchingCijfer(getrokken, speler) {
     /* const getrokkenStr = getrokken.toString();
     const spelerStr = speler.toString();*/
+    
+    const geTrokken = getrokken;
+    const spelers = speler;
 
-    for (let i = 0; i < getrokken; i++) {
-      if (speler[i] % 10 === getrokken[i] % 10) {
-        resultaten[1]++;
+    let count = 0;
+    let i = 0;
+    while (i < geTrokken) {
+      if ((geTrokken % 10 == spelers % 10)) {
+        count++;
+        if ((geTrokken % 100 == spelers % 100)) {
+          count++;
+        }
+        if ((geTrokken % 1000 == spelers % 1000)) {
+          count++;
+        }
+        if ((geTrokken % (10 * 100) == spelers % (10 * 100))) {
+          count++;
+        }
       }
-      if (speler[i] % 100 == getrokken[i] % 100) {
-        resultaten[2]++;
-      }
-      if (speler[i] % 1000 == getrokken[i] % 1000) {
-        resultaten[3]++;
-      } else {
-        resultaten[0]++;
-      }
-    }
-    return resultaten;
+      i++;
+    } return count;
 }
+
+
 
 
 function gemiddeldeWinst() {
