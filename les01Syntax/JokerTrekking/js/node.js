@@ -37,18 +37,22 @@ function getalGenereren() {
 function matchingCijfer(getrokken, speler) {   
     const geTrokken = getrokken;
     const spelers = speler;
+    const eenheid = 10;
+    const hunderdtal = 100;
+    const duizendtal = 1000;
+    const tienDuizenTal = 10000;
 
     let count = 0;
-    if ((geTrokken % 10 == spelers % 10)) {
+    if ((geTrokken % eenheid == spelers % eenheid)) {
       count++;
     }
-    if ((geTrokken % 100 == spelers % 100)) {
+    if ((geTrokken % hunderdtal == spelers % hunderdtal)) {
       count++;
     }
-    if ((geTrokken % 1000 == spelers % 1000)) {
+    if ((geTrokken % duizendtal == spelers % duizendtal)) {
       count++;
     }
-    if ((geTrokken % 10000 == spelers % 10000)) {
+    if ((geTrokken % tienDuizenTal == spelers % tienDuizenTal)) {
       count++;
     }
     return count;
