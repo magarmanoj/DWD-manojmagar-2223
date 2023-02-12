@@ -4,24 +4,26 @@ const scores = [players.length];
 const NUM_DICE = 3;
 
 
-console.log(`
-DOBBELSTENEN
-============
+console.log('%c'
++ '\nDOBBELSTENEN\n'
++ '============\n\n'
 
 
-aantal deelnemers: ${players.length}`);
-for (let i = 0; i < players.length; i++) {
-    console.log(`${players[i]} gooit: `);
++ 'aantal deelnemers:' + (players.length) + ' \n', 'font-size:15px');
+for (let i = 0; i < players.length; i++) {  
     const dice = [NUM_DICE];
     for (let j = 0; j < NUM_DICE; j++) {
         dice[j] = Math.floor(Math.random() * 7) + 1;
     }
     scores[i] = getTotal(dice);
-    console.log(`${diceToString(dice)} (${scores[i]} punten)`);
+    console.log('%c' + players[i] + 'gooit: ' + (scores[i]) + ' punten', 'font-size:15px');
+
+    // console.log(`${diceToString(dice)} (${scores[i]} punten)`);
+    console.log('%c' + diceToString(dice), 'font-size:35px');
     }
 
-console.log('\nWINNAAR:');
-console.log('%c' + getWinner(scores, players), 'background: yellow; color: black; font-size: 25px;');
+console.log('%c\nWINNAAR:', 'font-size: 15px;');
+console.log('%c' + getWinner(scores, players), 'border:double; padding: 10px; background: yellow; color: black; font-size: 20px;');
 
 
 function diceToString(dice) {
