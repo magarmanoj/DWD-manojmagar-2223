@@ -14,6 +14,6 @@ links.forEach((lnk, index) => {
     lnk.addEventListener('click', function(e) {
         e.preventDefault();     
         img.src = photos[index].src;
-        figcap.innerHTML = `JORDAN 1 MAIN ${lnk.textContent}`;            
+        figcap.innerHTML = `JORDAN 1 MAIN ${photos[index].caption}`;            
     });
 });
