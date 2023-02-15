@@ -31,7 +31,7 @@ console.log(`%c0 juist: ${resultaten[0]}
 console.log(`%cgemiddelde winst:  €${gemiddeldeWinst(resultaten, totaalSpeler, winst).toFixed(3)}`, 'padding: 15px; background: grey; color: #bda800; font-size: 20px;');
 
 function getalGenereren(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + max;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function matchingCijfer(getrokken, speler) {
