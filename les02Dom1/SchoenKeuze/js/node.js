@@ -84,6 +84,7 @@ frmOrder.addEventListener('submit', function(e) {
         naamAccess = newNaamAccess;
         lblMsg.innerHTML = `Je keuze: ${figCap.innerHTML}, maat ${inpMaat.value}, ${naamAccess} (totaalprijs: €${Math.round(totaalPrijs * 100) / 100})`;
         naamAccess = '';
+        // eslint-disable-next-line no-magic-numbers
         totaalPrijs = 54.99;
     }
 });
