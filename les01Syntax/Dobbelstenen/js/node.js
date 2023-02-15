@@ -1,17 +1,14 @@
 
 const players = ['Magnus', 'Eline', 'Ding', 'Judith', 'Praggna'];
-const scores = [players.length];
+const scores = new Array (players.length);
 const NUM_DICE = 3;
 
 
-console.log('%c'
-+ '\nDOBBELSTENEN\n'
+console.log('%c' + '\nDOBBELSTENEN\n'
 + '============\n\n'
-
-
 + 'aantal deelnemers:' + (players.length) + ' \n', 'font-size:15px');
 for (let i = 0; i < players.length; i++) {  
-    const dice = [NUM_DICE];
+    const dice = new Array (NUM_DICE);
     for (let j = 0; j < NUM_DICE; j++) {
         dice[j] = Math.floor(Math.random() * 7) + 1;
     }
@@ -20,7 +17,7 @@ for (let i = 0; i < players.length; i++) {
 
     // console.log(`${diceToString(dice)} (${scores[i]} punten)`);
     console.log('%c' + diceToString(dice), 'font-size:35px');
-    }
+}
 
 console.log('%c\nWINNAAR:', 'font-size: 15px;');
 console.log('%c' + getWinner(scores, players), 'border:double; padding: 10px; background: yellow; color: black; font-size: 20px;');
