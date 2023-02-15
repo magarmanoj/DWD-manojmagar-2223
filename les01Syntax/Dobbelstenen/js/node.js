@@ -1,6 +1,6 @@
 
 const players = ['Magnus', 'Eline', 'Ding', 'Judith', 'Praggna'];
-const scores = new Array (players.length);
+const scores = [];
 const NUM_DICE = 3;
 
 
@@ -8,7 +8,7 @@ console.log('%c' + '\nDOBBELSTENEN\n'
 + '============\n\n'
 + 'aantal deelnemers:' + (players.length) + ' \n', 'font-size:15px');
 for (let i = 0; i < players.length; i++) {  
-    const dice = new Array (NUM_DICE);
+    const dice = [];
     for (let j = 0; j < NUM_DICE; j++) {
         dice[j] = Math.floor(Math.random() * 7) + 1;
     }

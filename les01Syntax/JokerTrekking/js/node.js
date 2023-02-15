@@ -25,8 +25,7 @@ console.log(`%c0 juist: ${resultaten[0]}
 1 juist: ${resultaten[1]}
 2 juist: ${resultaten[2]}
 3 juist: ${resultaten[3]}
-4 juist: ${resultaten[4]}
-`, 'font-size: 15px;');
+4 juist: ${resultaten[4]}`, 'font-size: 15px;');
 
 console.log(`%cgemiddelde winst:  €${gemiddeldeWinst().toFixed(3)}`, 'padding: 15px; background: grey; color: #bda800; font-size: 20px;');
 
