@@ -4,10 +4,11 @@ const scores = [];
 const NUM_DICE = 3;
 
 
+// eslint-disable-next-line no-useless-concat
 console.log('%c' + '\nDOBBELSTENEN\n'
 + '============\n\n'
 + 'aantal deelnemers:' + (players.length) + ' \n', 'font-size:15px');
-for (let i = 0; i < players.length; i++) {  
+for (let i = 0; i < players.length; i++) {
     const dice = [];
     for (let j = 0; j < NUM_DICE; j++) {
         dice[j] = Math.floor(Math.random() * 7) + 1;
