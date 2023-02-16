@@ -1,0 +1,16 @@
+#row1, #row2, #row3{
+    display: flex;
+    justify-content:center;
+
+}
+
+button{
+    width:10em;
+    height:10em;
+    margin:0.5em;
+}
+
+h1{
+    text-align: center;
+    margin: 2em;
+}
