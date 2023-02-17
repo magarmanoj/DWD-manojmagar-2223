@@ -4,11 +4,10 @@ const photoIndex = [];
 const next = document.querySelectorAll('#next');
 const prev = document.querySelectorAll('#prev');
 
-thumbLinks.forEach((lnk, index) => {
+thumbLinks.forEach(lnk => {
     lnk.addEventListener('click', handleLinkClicks);
-    photoIndex.push(index);
-    console.log(photoIndex);
 });
+
 function handleLinkClicks(e) {
     e.preventDefault();
     figBig.querySelector('img').src = this.href;
@@ -16,8 +15,11 @@ function handleLinkClicks(e) {
 }
 
 next.forEach((button, index) => {
-    button.addEventListener('click', function () {
-        photoIndex.push(index);
+    button.addEventListener('click', function() {
+        for (let i = 0; i < thumbLinks.length; i++) {
+            photoIndex.push(i);
+        }
+        
         console.log(photoIndex);
 
         const next = photoIndex[index]++;
@@ -33,9 +35,10 @@ prev.forEach((button, index) => {
         photoIndex.push(index);
         console.log(photoIndex);
 
-        const next = photoIndex[index]--;
-        const nextThumb = thumbLinks[next];
-        figBig.querySelector('img').src = nextThumb.href;
-        figBig.querySelector('figcaption').innerHTML = nextThumb.querySelector('img').alt;
+        const prev = photoIndex[index]--;
+        const prevThumb = thumbLinks[prev];
+        figBig.querySelector('img').src = prevThumb.href;
+        figBig.querySelector('figcaption').innerHTML = prevThumb.querySelector('img').alt;
     });
 });
+
