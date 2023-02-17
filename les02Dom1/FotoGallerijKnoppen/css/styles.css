@@ -34,3 +34,9 @@ img {
 #figBig {
     margin-right: 5px;
 }
+
+button{
+    height:2em;
+    margin-top:1em; 
+    width:4em;
+}
