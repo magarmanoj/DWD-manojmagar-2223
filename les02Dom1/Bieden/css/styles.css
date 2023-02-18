@@ -1,0 +1,35 @@
+form p {
+    max-width: 100%;
+    display: flex;
+    flex-flow: nowrap;
+    justify-content: space-between;
+}
+
+form label {
+    margin-right: 3em;
+}
+
+#main{
+    display: flex;
+    max-width: 31%;
+}
+
+#main img {
+    margin-right: 3em;
+}
+
+#lblMsg {
+    font-weight: bold;
+    padding-top:0.5em;
+}
+
+button {
+    opacity: 90%;
+    padding: 0.5em;
+    border: 1px;
+    border-style: solid;
+}
+
+#form {
+    display: block;
+}
