@@ -1,44 +1,38 @@
 const figBig = document.querySelector('#figBig');
 const thumbLinks = document.querySelectorAll('.thumbs a');
-const photoIndex = [];
 const next = document.querySelectorAll('#next');
 const prev = document.querySelectorAll('#prev');
 
-thumbLinks.forEach(lnk => {
-    lnk.addEventListener('click', handleLinkClicks);
+let photoIndex = 0;
+
+thumbLinks.forEach((lnk) => {
+    lnk.addEventListener('click', function(e) {
+        e.preventDefault();
+        handleLinkClicks(lnk);
+    });
 });
 
 function handleLinkClicks(e) {
-    e.preventDefault();
-    figBig.querySelector('img').src = this.href;
-    figBig.querySelector('figcaption').innerHTML = this.querySelector('img').alt;
+    figBig.querySelector('img').src = e.href;
+    figBig.querySelector('figcaption').innerHTML = e.querySelector('img').alt;
 }
 
-next.forEach((button, index) => {
+next.forEach(button => {
     button.addEventListener('click', function() {
-        for (let i = 0; i < thumbLinks.length; i++) {
-            photoIndex.push(i);
+        photoIndex++;
+        if (photoIndex >= thumbLinks.length) {
+            photoIndex = 0;
         }
-        
-        console.log(photoIndex);
-
-        const next = photoIndex[index]++;
-        const nextThumb = thumbLinks[next];
-        figBig.querySelector('img').src = nextThumb.href;
-        figBig.querySelector('figcaption').innerHTML = nextThumb.querySelector('img').alt;
+        handleLinkClicks(thumbLinks[photoIndex]);
     });
 });
 
-
-prev.forEach((button, index) => {
+prev.forEach(button => {
     button.addEventListener('click', function() {
-        photoIndex.push(index);
-        console.log(photoIndex);
-
-        const prev = photoIndex[index]--;
-        const prevThumb = thumbLinks[prev];
-        figBig.querySelector('img').src = prevThumb.href;
-        figBig.querySelector('figcaption').innerHTML = prevThumb.querySelector('img').alt;
+        photoIndex--;
+        if (photoIndex < 0) {
+            photoIndex = thumbLinks.length - 1;
+        }
+        handleLinkClicks(thumbLinks[photoIndex]);
     });
 });
-
