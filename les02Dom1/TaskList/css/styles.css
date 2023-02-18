@@ -126,3 +126,30 @@ input, textarea, select {
    font-size: 14px;
    padding: 5px 10px;
 }
+
+.priorityLow{
+   color: green;
+}
+.priorityNormal{
+   color: orange;
+}
+.priorityHigh{
+   color: red;
+}
+
+.task:nth-of-type(1) .priority {
+   color: green;
+}
+
+.task:nth-of-type(2) .priority {
+   color: red;
+}
+
+.deadline {
+   font-size: smaller;
+   font-style: italic;
+}
+.control label[for="datDeadline"] {
+   font-size: smaller;
+   font-style: italic;
+}
