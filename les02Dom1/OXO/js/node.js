@@ -11,7 +11,7 @@ function buttonClick(event) {
     event.target.disabled = true;
     checkWinner();
 
-    if (currentTurn == 'X') {
+    if (currentTurn === 'X') {
         currentTurn = 'O';
     }
     else {
