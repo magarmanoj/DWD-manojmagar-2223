@@ -5,7 +5,8 @@ const msg = document.querySelector('#lblMsg');
 let hoogsteBod = 0;
 let hoogsteBidder = ' ';
 
-btn.addEventListener('click', function() {
+btn.addEventListener('click', function(e) {
+    e.preventDefault();
     const huidigBod = inpBod.value;
     const huidigBidder = inpNaam.value;
     if (huidigBod > hoogsteBod) {
