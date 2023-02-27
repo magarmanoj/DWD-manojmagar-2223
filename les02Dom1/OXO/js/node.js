@@ -1,6 +1,7 @@
 const btn = document.querySelectorAll('.col_tile');
 const winner = document.querySelector('.winner span');
 const gelijk = document.querySelector('#draw');
+const reset = document.querySelector('.reset');
 
 let currentTurn = 'X';
 
@@ -47,8 +48,11 @@ function checkWinner() {
             }
         }
     });
-    gameDraw();
-    return win;
+    if (!win) {
+        gameDraw();
+    } else {
+        return win;
+    }
 }
 
 function gameDraw() {
@@ -65,3 +69,15 @@ function gameDraw() {
     return draw;
 }
 
+function resetGame() {
+    for (let i = 0; i < btn.length; i++) {
+        btn[i].textContent = ' ';
+        btn[i].disabled = false;
+        btn[i].addEventListener('click', buttonClick);
+    }
+    winner.innerHTML = ' ';
+    gelijk.innerHTML = ' ';
+    currentTurn = 'X';
+}
+
+reset.addEventListener('click', resetGame);
