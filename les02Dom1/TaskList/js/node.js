@@ -11,7 +11,7 @@ btn.addEventListener('submit', function(e) {
     if (selPriority.value == 'low' && txtTask.value != '' && deadLine.value != '') {
         tasks.innerHTML += `
         <div class="task">
-            <span class="priority material-icons">assignment</span>
+            <span class="priorityLow material-icons">assignment</span>
             <p class="tasktext">${txtTask.value} <span class="deadline">(deadline: ${deadLine.value})</span></p>
             <span class="complete material-icons">more_horiz</span>
          </div>`;
