@@ -21,7 +21,7 @@ btn.addEventListener('submit', function(e) {
 
 tasks.addEventListener('click', function(e) {
     if (!e.target.classList.contains('material-icons')) return;
-    if (e.target.classList.add('done')) {
+    if (e.target.classList.contains('done')) {
         e.target.classList.remove('done');
         e.target.innerHTML = 'more_horiz';
     } else {
