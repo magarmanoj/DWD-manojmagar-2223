@@ -13,9 +13,9 @@ h1{
 .col_tile{
     border: 2px solid #000;
     cursor: pointer;
-    height:10em;
-    margin:0.5em; 
-    width:10em;
+    height:1.5em;
+    width:1.5em;
+    font-size: 3.5em;
 }
 
 .col_tile:disabled{
