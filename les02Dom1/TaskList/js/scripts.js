@@ -29,3 +29,4 @@ tasks.addEventListener('click', function(e) {
         e.target.innerText = 'done';
     }
 });
+
