@@ -1,7 +1,7 @@
 const figBig = document.querySelector('#figBig');
 const thumbLinks = document.querySelectorAll('.thumbs a');
-const next = document.querySelectorAll('#next');
-const prev = document.querySelectorAll('#prev');
+const next = document.querySelector('#next');
+const prev = document.querySelector('#prev');
 
 let photoIndex = 0;
 
@@ -17,22 +17,27 @@ function handleLinkClicks(e) {
     figBig.querySelector('figcaption').innerHTML = e.querySelector('img').alt;
 }
 
-next.forEach(button => {
-    button.addEventListener('click', function() {
+function showPhoto(photoNr) {
+    if (photoNr == 'next') {
         photoIndex++;
         if (photoIndex >= thumbLinks.length) {
             photoIndex = 0;
         }
-        handleLinkClicks(thumbLinks[photoIndex]);
-    });
-});
-
-prev.forEach(button => {
-    button.addEventListener('click', function() {
+    }
+    else {
         photoIndex--;
         if (photoIndex < 0) {
             photoIndex = thumbLinks.length - 1;
-        }
-        handleLinkClicks(thumbLinks[photoIndex]);
-    });
+        }  
+    }
+    handleLinkClicks(thumbLinks[photoIndex]);
+}
+
+next.addEventListener('click', function() {
+    showPhoto('next');
 });
+
+prev.addEventListener('click', function() {
+    showPhoto('prev');
+});
+
