@@ -7,7 +7,6 @@ const txtTask = btn.querySelector('#txtTask');
 
 btn.addEventListener('submit', function(e) {
     e.preventDefault();
-
     if (txtTask.value != '') {
         const txtDatum = deadLine.value == '' ? '' : `<span class="deadline">(deadline: ${deadLine.value})</span>`;
         tasks.innerHTML += `

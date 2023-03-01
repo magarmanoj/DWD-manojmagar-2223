@@ -1,13 +1,13 @@
 const inpNaam = document.querySelector('#naam');
 const inpBod = document.querySelector('#bod');
-const btn = document.querySelector('button');
+const btn = document.querySelector('#form');
 const msg = document.querySelector('#lblMsg');
 let hoogsteBod = 0;
 let hoogsteBidder = ' ';
 
-btn.addEventListener('click', function(e) {
+btn.addEventListener('submit', function(e) {
     e.preventDefault();
-    const huidigBod = parseInt(inpBod.value);
+    const huidigBod = parseFloat(inpBod.value);
     const huidigBidder = inpNaam.value;
     if (huidigBod > hoogsteBod) {
         hoogsteBod = huidigBod;
@@ -21,5 +21,3 @@ btn.addEventListener('click', function(e) {
         msg.innerHTML = `jammer! ${hoogsteBidder} heeft een hoger bod`;
     } 
 });
-
-
