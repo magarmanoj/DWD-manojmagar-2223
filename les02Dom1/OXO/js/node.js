@@ -11,7 +11,7 @@ function buttonClick(event) {
     event.target.disabled = true;
     checkWinner();
 
-    if (currentTurn === 'X') {
+    if (currentTurn == 'X') {
         currentTurn = 'O';
     }
     else {
@@ -39,7 +39,7 @@ function checkWinner() {
 
 
     combinatie.forEach(function(combo) { 
-        if (btn[combo[0]].textContent === btn[combo[1]].textContent && btn[combo[1]].textContent === btn[combo[2]].textContent && btn[combo[0]].textContent !== ' ') {
+        if (btn[combo[0]].textContent == btn[combo[1]].textContent && btn[combo[1]].textContent == btn[combo[2]].textContent && btn[combo[0]].textContent != ' ') {
             // eslint-disable-next-line no-useless-concat
             winner.innerHTML = 'winner: ' + 'player ' + currentTurn;
             win = true;
@@ -58,7 +58,7 @@ function checkWinner() {
 function gameDraw() {
     let draw = true;
     for (let i = 0; i < btn.length; i++) {
-        if (btn[i].innerHTML === ' ') {
+        if (btn[i].innerHTML == ' ') {
             draw = false;
             return draw;
         }

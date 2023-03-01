@@ -8,34 +8,24 @@ const txtTask = btn.querySelector('#txtTask');
 btn.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    if (selPriority.value == 'low' && txtTask.value != '' && deadLine.value != '') {
+    if (txtTask.value != '') {
+        const txtDatum = deadLine.value == '' ? '' : `<span class="deadline">(deadline: ${deadLine.value})</span>`;
         tasks.innerHTML += `
         <div class="task">
-            <span class="priorityLow material-icons">assignment</span>
-            <p class="tasktext">${txtTask.value} <span class="deadline">(deadline: ${deadLine.value})</span></p>
-            <span class="complete material-icons">more_horiz</span>
-        </div>`;
-    }
-    if (selPriority.value == 'normal' && txtTask.value != '' && deadLine.value != '') {
-        tasks.innerHTML += `
-        <div class="task">
-            <span class="priorityNormal material-icons">assignment</span>
-            <p class="tasktext">${txtTask.value} <span class="deadline">(deadline: ${deadLine.value})</span></p>
-            <span class="complete material-icons">more_horiz</span>
-        </div>`;
-    }
-    if (selPriority.value == 'high' && txtTask.value != '' && deadLine.value != '') {
-        tasks.innerHTML += `
-        <div class="task">
-            <span class="priorityHigh material-icons">assignment</span>
-            <p class="tasktext">${txtTask.value} <span class="deadline">(deadline: ${deadLine.value})</span></p>
+            <span class="${selPriority.value} material-icons">assignment</span>
+            <p class="tasktext">${txtTask.value}${txtDatum} </p>
             <span class="complete material-icons">more_horiz</span>
         </div>`;
     }
 });
 
 tasks.addEventListener('click', function(e) {
-    if (!e.target.classList.contains('complete')) return;
-    e.target.classList.add('done');
-    e.target.innerText = 'done';
+    if (!e.target.classList.contains('material-icons')) return;
+    if (e.target.classList.add('done')) {
+        e.target.classList.remove('done');
+        e.target.innerHTML = 'more_horiz';
+    } else {
+        e.target.classList.add('done');
+        e.target.innerText = 'done';
+    }
 });
