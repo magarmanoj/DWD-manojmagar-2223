@@ -127,13 +127,13 @@ input, textarea, select {
    padding: 5px 10px;
 }
 
-.priorityLow{
+.low{
    color: green;
 }
-.priorityNormal{
+.normal{
    color: orange;
 }
-.priorityHigh{
+.high{
    color: red;
 }
 
