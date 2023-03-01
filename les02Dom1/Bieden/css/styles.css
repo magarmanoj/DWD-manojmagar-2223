@@ -23,12 +23,12 @@ form label {
 }
 
 button {
-    padding: 0.5em;
     border: 1px;
     border-style: solid;
+    padding: 0.5em;
 }
 
 #form {
-    max-width: 35%;
     display: block;
+    max-width: 35%;
 }

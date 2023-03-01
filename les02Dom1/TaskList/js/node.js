@@ -14,7 +14,7 @@ btn.addEventListener('submit', function(e) {
             <span class="priorityLow material-icons">assignment</span>
             <p class="tasktext">${txtTask.value} <span class="deadline">(deadline: ${deadLine.value})</span></p>
             <span class="complete material-icons">more_horiz</span>
-         </div>`;
+        </div>`;
     }
     if (selPriority.value == 'normal' && txtTask.value != '' && deadLine.value != '') {
         tasks.innerHTML += `
@@ -22,7 +22,7 @@ btn.addEventListener('submit', function(e) {
             <span class="priorityNormal material-icons">assignment</span>
             <p class="tasktext">${txtTask.value} <span class="deadline">(deadline: ${deadLine.value})</span></p>
             <span class="complete material-icons">more_horiz</span>
-         </div>`;
+        </div>`;
     }
     if (selPriority.value == 'high' && txtTask.value != '' && deadLine.value != '') {
         tasks.innerHTML += `
@@ -30,12 +30,12 @@ btn.addEventListener('submit', function(e) {
             <span class="priorityHigh material-icons">assignment</span>
             <p class="tasktext">${txtTask.value} <span class="deadline">(deadline: ${deadLine.value})</span></p>
             <span class="complete material-icons">more_horiz</span>
-         </div>`;
+        </div>`;
     }
 });
 
 tasks.addEventListener('click', function(e) {
-    if (!e.target.classList.contains('complete')) return; 
+    if (!e.target.classList.contains('complete')) return;
     e.target.classList.add('done');
     e.target.innerText = 'done';
 });
