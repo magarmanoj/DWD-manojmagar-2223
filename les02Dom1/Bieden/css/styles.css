@@ -8,12 +8,12 @@ form label {
     margin-right: 3em;
 }
 
-#main{
+#main_form{
     display: flex;
-    max-width: 35%;
+    max-width: 50%;
 }
 
-#main img {
+#main_form img {
     margin-right: 3em;
 }
 
@@ -30,5 +30,9 @@ button {
 
 #form {
     display: block;
-    max-width: 35%;
+    max-width: 50%;
+}
+
+body{
+    background-color: pink;
 }

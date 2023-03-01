@@ -7,7 +7,7 @@ let hoogsteBidder = ' ';
 
 btn.addEventListener('click', function(e) {
     e.preventDefault();
-    const huidigBod = inpBod.value;
+    const huidigBod = parseInt(inpBod.value);
     const huidigBidder = inpNaam.value;
     if (huidigBod > hoogsteBod) {
         hoogsteBod = huidigBod;

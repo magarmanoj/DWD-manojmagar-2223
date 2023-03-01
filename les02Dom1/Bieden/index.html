@@ -10,19 +10,19 @@
 </head>
 
 <body>
-    <main>
+    <main class="main">
         <h1>Prachtige vaas! Doe een bod</h1>
-        <div id="main">
+        <div id="main_form">
             <img src="img/images.jpeg" alt="Vaas">
             <div id="form">
                 <form action="#">
                     <p>
                         <label for="naam">Naam bieder:</label><br>
-                        <input type="text" id="naam">
+                        <input type="text" id="naam" required>
                     </p>
                     <p>
                         <label for="bod">Bod:</label><br>
-                        <input type="number" id="bod">
+                        <input type="number" id="bod" required>
                     </p>
                     <p>
                         <button type="submit" class="btn_form">Plaats bod</button>
