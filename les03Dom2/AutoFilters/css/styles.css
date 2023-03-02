@@ -56,6 +56,28 @@ img {
 	width: 100%;
 }
 
+.sliderValue {
+
+}
+
+.normal{
+	filter: none;
+}
+.gray{
+	filter: grayscale(100%);
+}
+.sepia{
+	filter: sepia(100%);
+}
+.hue{
+	filter:hue-rotate(180deg);
+}
+.blur{
+	filter:blur(10px)
+}
+
+
+
 @media(min-width: 40em) {
 	.filters {
 		flex-flow: row nowrap;

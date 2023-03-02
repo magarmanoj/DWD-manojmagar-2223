@@ -1,22 +1,39 @@
 const DOM = {
-    filterWrapper: document.querySelectorAll('.filter-wrapper'),
-    filters: document.querySelector('.filters'),
+    img: document.querySelector('#van'),
+    filter: document.querySelectorAll('.filter'),
     normal: document.querySelector('#filter-normal'),
     gray: document.querySelector('#filter-gray'),
     sepia: document.querySelector('#filter-sepia'),
     hue: document.querySelector('#filter-hue'),
-    blur: document.querySelector('#filter-blur')
+    blur: document.querySelector('#filter-blur'),
+    slider: document.querySelector('#slider1'),
 };
 
-DOM.filterWrapper.forEach(lnk => {
-    DOM.filters.addEventListener('click', function() {
-        document.querySelector('.filter').classList.remove('filter');
-        lnk.classList.add('normal');
-        lnk.classList.add('gray');
-        lnk.classList.add('sepia');
-        lnk.classList.add('hue');
-        lnk.classList.add('blur');
+DOM.filter.forEach(button => {
+    button.addEventListener('click', function() {
+        DOM.img.classList.remove('normal', 'gray', 'sepia', 'hue', 'blur');
+        switch (button.id) {
+            case 'filter-normal':
+                DOM.img.classList.add('normal');
+                break;
+            case 'filter-gray':
+                DOM.img.classList.add('gray');
+                break;
+            case 'filter-sepia':
+                DOM.img.classList.add('sepia');
+                break;
+            case 'filter-hue':
+                DOM.img.classList.add('hue');
+                break;
+            case 'filter-blur':
+                DOM.img.classList.add('blur');
+                break;                  
+            default:
+                break;
+        }
+    });
+});
 
-        console.log('ssdsd');
-    });    
+DOM.slider.addEventListener('input', function() {
+    DOM.img.style.opacity = DOM.slider.value;
 });
