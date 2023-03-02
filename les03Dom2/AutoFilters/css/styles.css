@@ -78,6 +78,7 @@ img {
 
 
 
+
 @media(min-width: 40em) {
 	.filters {
 		flex-flow: row nowrap;
