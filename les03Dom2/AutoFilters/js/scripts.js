@@ -11,6 +11,10 @@ const DOM = {
 
 DOM.filter.forEach(button => {
     button.addEventListener('click', function() {
+        DOM.filter.forEach(btn => {
+            btn.classList.remove('active');        
+        });
+        button.classList.add('active');
         DOM.img.classList.remove('normal', 'gray', 'sepia', 'hue', 'blur');
         switch (button.id) {
             case 'filter-normal':

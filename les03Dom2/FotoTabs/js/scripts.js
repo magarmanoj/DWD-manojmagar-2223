@@ -1,26 +1,55 @@
 const DOM = {
     viewGrid: document.querySelectorAll('.viewGrid'),
     navBtn: document.querySelectorAll('.button'),
-    nacht: document.querySelectorAll('figure[data-filters="nacht steden"]')
+    figure: document.querySelectorAll('figure'),
+    numFound: document.querySelector('#numFound'),
+    headerView: document.querySelectorAll('.active')
 };
 
 
-for (let i = 0; i < DOM.navBtn.length; i++) {
-    DOM.navBtn[i].addEventListener('click', function() {
-        for (let j = 0; j < DOM.navBtn.length; j++) {
-            DOM.navBtn[j].classList.remove('active');
+DOM.navBtn.forEach(nav => {
+    nav.addEventListener('click', function() {
+        for (let i = 0; i < DOM.navBtn.length; i++) {
+            DOM.navBtn[i].classList.remove('active');
         }
-        DOM.navBtn[i].classList.add('active');
-        if (DOM.navBtn[i].getAttribute('data-filter') == 'nacht') {
-            for (let k = 0; k < DOM.nacht.length; k++) {
-                if (DOM.nacht[k].getAttribute('data-filters') == 'nacht steden') {
-                    DOM.nacht.classList.remove('')
-                  DOM.nacht[k].style.display = 'block';
-                } else {
-                  DOM.nacht[k].style.display = 'none';
-                }
-        }  
-    }     
+        nav.classList.add('active');
+        const filter = nav.getAttribute('data-filter');
+        photoFilter(filter);
+    });
+});
+
+function photoFilter(filter) {
+    DOM.viewGrid.forEach(photo => {  
+        photo.innerHTML = '';
+        let countPhoto = 0;
+        DOM.figure.forEach(btn => {         
+            const img = btn.querySelector('img');
+            const figcaption = btn.querySelector('figcaption');
+            const photoHTML = `<figure data-filters="nacht steden">
+                <img src="${img.src}" alt="">
+                <figcaption>${figcaption.innerHTML}</figcaption>
+             </figure>`;
+            const figures = btn.getAttribute('data-filters').split(' ');
+            if (filter == figures[0] || filter == figures[1] && filter != 'alle') {   
+                countPhoto++;          
+                photo.innerHTML += photoHTML;
+                DOM.numFound.innerHTML = countPhoto;  
+            }
+            if (filter == 'alle') {
+                countPhoto++; 
+                photo.innerHTML += photoHTML;
+                DOM.numFound.innerHTML = countPhoto; 
+            }                
+        });        
     });
 }
 
+
+DOM.headerView.forEach(nav => {
+    nav.addEventListener('click', function() {
+        for (let i = 0; i < DOM.headerView.length; i++) {
+            DOM.headerView[i].classList.remove('active');
+        }
+        nav.classList.add('active');
+    });
+});
