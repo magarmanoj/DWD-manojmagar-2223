@@ -1,9 +1,11 @@
 const DOM = {
     viewGrid: document.querySelectorAll('.viewGrid'),
+    grid: document.querySelector('#grid'),
     navBtn: document.querySelectorAll('.button'),
     figure: document.querySelectorAll('figure'),
     numFound: document.querySelector('#numFound'),
     headerView: document.querySelectorAll('.header__view li a')
+    
 };
 
 
@@ -51,6 +53,12 @@ DOM.headerView.forEach(nav => {
             DOM.headerView[i].classList.remove('active');
         }
         nav.classList.add('active');
-        DOM.headerView.classList.add('viewGrid');
+        if (nav.id == 'lnkViewGrid') {
+            DOM.grid.classList.remove('viewList');
+            DOM.grid.classList.add('viewGrid');
+          } else if (nav.id == 'lnkViewList') {
+            DOM.grid.classList.remove('viewGrid');
+            DOM.grid.classList.add('viewList');
+          }
     });
 });

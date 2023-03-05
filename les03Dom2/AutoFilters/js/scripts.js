@@ -7,6 +7,7 @@ const DOM = {
     hue: document.querySelector('#filter-hue'),
     blur: document.querySelector('#filter-blur'),
     slider: document.querySelector('#slider1'),
+    lblslider: document.querySelector('#slider1-val')
 };
 
 DOM.filter.forEach(button => {
@@ -40,4 +41,5 @@ DOM.filter.forEach(button => {
 
 DOM.slider.addEventListener('input', function() {
     DOM.img.style.opacity = DOM.slider.value;
+    DOM.lblslider.innerHTML = `${DOM.slider.value * 100}%`;
 });
