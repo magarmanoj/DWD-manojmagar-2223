@@ -43,6 +43,14 @@ img {
 	color: white;
 }
 
+.after {
+	border: 2px solid #9ecaed;
+	background-color: black;
+	box-shadow: 0px 5px 10px 0px #9ecaed;
+	color: white;
+	
+}
+
 
 .filters button, label[for=slider1] {
 	font-size: 1.3rem;
@@ -54,7 +62,7 @@ img {
 	width: 40%;
 	max-width: 30rem;
 	margin: 0 1rem;
-	align-items: center;	
+	align-items: center;
 }
 
 #slider-label {
@@ -65,20 +73,24 @@ img {
 }
 
 
-.normal{
+.normal {
 	filter: none;
 }
-.gray{
+
+.gray {
 	filter: grayscale(100%);
 }
-.sepia{
+
+.sepia {
 	filter: sepia(100%);
 }
-.hue{
-	filter:hue-rotate(180deg);
+
+.hue {
+	filter: hue-rotate(180deg);
 }
-.blur{
-	filter:blur(10px)
+
+.blur {
+	filter: blur(10px)
 }
 
 
@@ -88,8 +100,9 @@ img {
 	.filters {
 		flex-flow: row nowrap;
 		list-style: none;
-		justify-content: center;	
+		justify-content: center;
 	}
+
 	.filters button {
 		min-width: 0;
 	}
