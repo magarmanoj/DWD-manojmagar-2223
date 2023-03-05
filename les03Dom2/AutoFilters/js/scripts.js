@@ -40,6 +40,29 @@ DOM.filter.forEach(button => {
     });
 });
 
+// andere manier om te maken (gebruik van list)
+// const filterList = {
+//     'filter-normal': 'normal',
+//     'filter-gray': 'grayscale',
+//     'filter-sepia': 'sepia',
+//     'filter-hue': 'hue',
+//     'filter-blur': 'blur'
+// };
+
+// DOM.filter.forEach(button => {
+//     button.addEventListener('click', function() {
+//         DOM.filter.forEach(btn => {
+//             btn.classList.remove('active');
+//             btn.classList.remove('after');        
+//         });
+//         button.classList.add('after');
+//         const list = filterList[button.id];
+//         DOM.img.classList.remove('normal', 'gray', 'sepia', 'hue', 'blur');
+//         DOM.img.classList.add(list);
+//         });
+// });
+
+
 DOM.slider.addEventListener('input', function() {
     DOM.img.style.opacity = DOM.slider.value;
     DOM.lblslider.innerHTML = `${DOM.slider.value * 100}%`;
