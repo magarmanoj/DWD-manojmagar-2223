@@ -15,7 +15,6 @@ DOM.stijlBtn.forEach(btn => {
     console.log(btn.id);
     DOM.tekst.classList.remove('style1', 'style2', 'style3');
     if (btn.id == 'stijl1') {
-      btn.classList.add('button');
       DOM.tekst.classList.add('style1');
     } else if (btn.id == 'stijl2') {
       DOM.tekst.classList.add('style2');

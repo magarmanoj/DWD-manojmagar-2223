@@ -23,9 +23,10 @@ ul {
 	font-style: italic;
 }
 
-button {
-    background-color: black;
-    color: white;;
+button:hover{
+    border: 1px solid black;
+    background-color: grey;
+    color: white;
 }
 
 .hoofdletters {
