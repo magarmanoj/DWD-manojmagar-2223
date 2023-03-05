@@ -3,7 +3,7 @@ const DOM = {
     navBtn: document.querySelectorAll('.button'),
     figure: document.querySelectorAll('figure'),
     numFound: document.querySelector('#numFound'),
-    headerView: document.querySelectorAll('.active')
+    headerView: document.querySelectorAll('.header__view li a')
 };
 
 
@@ -51,5 +51,6 @@ DOM.headerView.forEach(nav => {
             DOM.headerView[i].classList.remove('active');
         }
         nav.classList.add('active');
+        DOM.headerView.classList.add('viewGrid');
     });
 });
