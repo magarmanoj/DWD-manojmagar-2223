@@ -5,12 +5,12 @@ const DOM = {
     figure: document.querySelectorAll('figure'),
     numFound: document.querySelector('#numFound'),
     headerView: document.querySelectorAll('.header__view li a')
-    
+
 };
 
 
 DOM.navBtn.forEach(nav => {
-    nav.addEventListener('click', function() {
+    nav.addEventListener('click', function () {
         for (let i = 0; i < DOM.navBtn.length; i++) {
             DOM.navBtn[i].classList.remove('active');
         }
@@ -21,10 +21,10 @@ DOM.navBtn.forEach(nav => {
 });
 
 function photoFilter(filter) {
-    DOM.viewGrid.forEach(photo => {  
+    DOM.viewGrid.forEach(photo => {
         photo.innerHTML = '';
         let countPhoto = 0;
-        DOM.figure.forEach(btn => {         
+        DOM.figure.forEach(btn => {
             const img = btn.querySelector('img');
             const figcaption = btn.querySelector('figcaption');
             const photoHTML = `<figure data-filters="nacht steden">
@@ -32,23 +32,23 @@ function photoFilter(filter) {
                 <figcaption>${figcaption.innerHTML}</figcaption>
              </figure>`;
             const figures = btn.getAttribute('data-filters').split(' ');
-            if (filter == figures[0] || filter == figures[1] && filter != 'alle') {   
-                countPhoto++;          
+            if (filter == figures[0] || filter == figures[1] && filter != 'alle') {
+                countPhoto++;
                 photo.innerHTML += photoHTML;
-                DOM.numFound.innerHTML = countPhoto;  
+                DOM.numFound.innerHTML = countPhoto;
             }
             if (filter == 'alle') {
-                countPhoto++; 
+                countPhoto++;
                 photo.innerHTML += photoHTML;
-                DOM.numFound.innerHTML = countPhoto; 
-            }                
-        });        
+                DOM.numFound.innerHTML = countPhoto;
+            }
+        });
     });
 }
 
 
 DOM.headerView.forEach(nav => {
-    nav.addEventListener('click', function() {
+    nav.addEventListener('click', function () {
         for (let i = 0; i < DOM.headerView.length; i++) {
             DOM.headerView[i].classList.remove('active');
         }
@@ -56,9 +56,9 @@ DOM.headerView.forEach(nav => {
         if (nav.id == 'lnkViewGrid') {
             DOM.grid.classList.remove('viewList');
             DOM.grid.classList.add('viewGrid');
-          } else if (nav.id == 'lnkViewList') {
+        } else if (nav.id == 'lnkViewList') {
             DOM.grid.classList.remove('viewGrid');
             DOM.grid.classList.add('viewList');
-          }
+        }
     });
 });

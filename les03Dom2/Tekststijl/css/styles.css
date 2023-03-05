@@ -23,6 +23,11 @@ ul {
 	font-style: italic;
 }
 
+button {
+    background-color: black;
+    color: white;;
+}
+
 .hoofdletters {
 	text-transform: uppercase;
 

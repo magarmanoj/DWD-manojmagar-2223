@@ -11,10 +11,10 @@ const DOM = {
 };
 
 DOM.filter.forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
         DOM.filter.forEach(btn => {
             btn.classList.remove('active');
-            btn.classList.remove('after');        
+            btn.classList.remove('after');
         });
         button.classList.add('after');
         DOM.img.classList.remove('normal', 'gray', 'sepia', 'hue', 'blur');
@@ -33,7 +33,7 @@ DOM.filter.forEach(button => {
                 break;
             case 'filter-blur':
                 DOM.img.classList.add('blur');
-                break;                  
+                break;
             default:
                 break;
         }
@@ -63,7 +63,7 @@ DOM.filter.forEach(button => {
 // });
 
 
-DOM.slider.addEventListener('input', function() {
+DOM.slider.addEventListener('input', function () {
     DOM.img.style.opacity = DOM.slider.value;
     DOM.lblslider.innerHTML = `${DOM.slider.value * 100}%`;
 });
