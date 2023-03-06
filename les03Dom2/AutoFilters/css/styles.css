@@ -38,9 +38,9 @@ img {
 }
 
 .filters button.active {
+	border: 1px solid;
 	background-color: black;
 	color: white;
-	border-style: double;
 }
 
 
