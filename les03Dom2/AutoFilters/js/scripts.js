@@ -65,5 +65,8 @@ DOM.filter.forEach(button => {
 
 DOM.slider.addEventListener('input', function () {
     DOM.img.style.opacity = DOM.slider.value;
-    DOM.lblslider.innerHTML = `${DOM.slider.value * 100}%`;
+    DOM.lblslider.innerHTML = `${Math.round(DOM.slider.value * 100)}%`;
+    DOM.filter.forEach(button => {
+        button.classList.remove('after');
+    });
 });

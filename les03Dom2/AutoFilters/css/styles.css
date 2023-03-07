@@ -29,7 +29,7 @@ img {
 }
 
 .filters button {
-	border: 1px solid;
+	border: 2px solid;
 	margin: 1rem;
 	padding: 0.5rem 1rem;
 	cursor: pointer;
@@ -43,12 +43,11 @@ img {
 	color: white;
 }
 
+
 .after {
-	border: 2px solid #9ecaed;
 	background-color: black;
-	box-shadow: 0px 5px 10px 0px #9ecaed;
+	box-shadow: 1px 1px 5px 4px #9ecaed;
 	color: white;
-	
 }
 
 
