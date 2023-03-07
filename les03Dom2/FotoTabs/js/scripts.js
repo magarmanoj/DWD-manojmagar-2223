@@ -62,3 +62,5 @@ DOM.headerView.forEach(nav => {
         }
     });
 });
+
+DOM.numFound.innerHTML = DOM.figure.length;
