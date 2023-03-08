@@ -10,7 +10,7 @@ const DOM = {
 
 
 DOM.navBtnFilters.forEach(nav => {
-    nav.addEventListener('click', function () {
+    nav.addEventListener('click', function() {
         let totaalFigure = 0;
         document.querySelector('.nav__filters a.active').classList.remove('active');
         nav.classList.add('active');
@@ -57,7 +57,7 @@ DOM.navBtnFilters.forEach(nav => {
 
 
 DOM.headerView.forEach(nav => {
-    nav.addEventListener('click', function () {
+    nav.addEventListener('click', function() {
         for (let i = 0; i < DOM.headerView.length; i++) {
             DOM.headerView[i].classList.remove('active');
         }
