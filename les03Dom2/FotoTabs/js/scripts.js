@@ -10,12 +10,12 @@ const DOM = {
 
 
 DOM.navBtn.forEach(nav => {
-    nav.addEventListener('click', function () {
+    nav.addEventListener('click', function(){
         for (let i = 0; i < DOM.navBtn.length; i++) {
             DOM.navBtn[i].classList.remove('active');
         }
         nav.classList.add('active');
-        const filter = nav.getAttribute('data-filter');
+        const filter = nav.dataset.filter;
         photoFilter(filter);
     });
 });
@@ -30,7 +30,7 @@ function photoFilter(filter) {
             const photoHTML = `<figure data-filters="nacht steden">
                 <img src="${img.src}" alt="">
                 <figcaption>${figcaption.innerHTML}</figcaption>
-             </figure>`;
+                </figure>`;
             const figures = btn.getAttribute('data-filters').split(' ');
             if (filter == figures[0] || filter == figures[1] && filter != 'alle') {
                 countPhoto++;
@@ -46,9 +46,11 @@ function photoFilter(filter) {
     });
 }
 
+// innerHTML taal afhankelijk
+
 
 DOM.headerView.forEach(nav => {
-    nav.addEventListener('click', function () {
+    nav.addEventListener('click', function(){
         for (let i = 0; i < DOM.headerView.length; i++) {
             DOM.headerView[i].classList.remove('active');
         }
