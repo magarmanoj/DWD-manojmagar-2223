@@ -10,18 +10,19 @@ const DOM = {
 
 
 DOM.navBtnFilters.forEach(nav => {
-    nav.addEventListener('click', function(){
-        totaalFigure = 0
-        document.querySelector('.nav__filters a.active').classList.remove('active'),
+    nav.addEventListener('click', function () {
+        let totaalFigure = 0;
+        document.querySelector('.nav__filters a.active').classList.remove('active');
         nav.classList.add('active');
+
         // photoFilter(filter);
-        DOM.figures.forEach(figure =>{
+        DOM.figures.forEach(figure => {
             figure.classList.remove('hidden');
-            if (!figure.dataset.filters.includes(nav.innerHTML) && (nav.innerHTML != 'alle')){
+            if (!figure.dataset.filters.includes(nav.innerHTML) && (nav.innerHTML != 'alle')) {
                 figure.classList.add('hidden');
                 totaalFigure++;
             }
-            numFound.innerHTML = DOM.figures.length - totaalFigure;
+            DOM.numFound.innerHTML = DOM.figures.length - totaalFigure;
         });
     });
 });
@@ -56,7 +57,7 @@ DOM.navBtnFilters.forEach(nav => {
 
 
 DOM.headerView.forEach(nav => {
-    nav.addEventListener('click', function(){
+    nav.addEventListener('click', function () {
         for (let i = 0; i < DOM.headerView.length; i++) {
             DOM.headerView[i].classList.remove('active');
         }
