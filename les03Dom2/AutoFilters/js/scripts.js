@@ -30,10 +30,10 @@ DOM.filter.forEach(button => {
         const list = filterList[button.id];
         DOM.img.classList.remove('normal', 'gray', 'sepia', 'hue', 'blur');
         DOM.img.classList.add(list);
-        });
+    });
 
-        // button active weg doen doucment.querySelector('button.active').classlist.remove('avtive');
-        // btn.classList.add('active');
+    // button active weg doen doucment.querySelector('button.active').classlist.remove('avtive');
+    // btn.classList.add('active');
 });
 
 // deze is nog kortere manier (kan nog korter [...] = omzet )
@@ -54,7 +54,6 @@ DOM.filter.forEach(button => {
 
 //     });
 // });
-
 
 
 // DOM.filter.forEach(button => {
