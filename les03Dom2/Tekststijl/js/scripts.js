@@ -35,7 +35,7 @@ DOM.kleur.addEventListener('input', function () {
 
 DOM.checkboxes.forEach(checkbox => {
   checkbox.addEventListener('change', function() {
-    const effect = checkbox.getAttribute('data-effect');
+    const effect = checkbox.dataset.effect;
     if (checkbox.checked) {
       DOM.tekst.classList.add(effect);
     } else {
