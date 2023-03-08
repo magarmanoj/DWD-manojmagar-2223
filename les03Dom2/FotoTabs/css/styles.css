@@ -133,6 +133,10 @@ main p:first-child {
    margin-bottom: 20px;
 }
 
+#grid figure.hidden{
+   display: none;
+}
+
 #grid.viewList figure figcaption {
    font-size: 18px;
 }

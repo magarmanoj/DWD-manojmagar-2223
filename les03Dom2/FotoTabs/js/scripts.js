@@ -4,7 +4,7 @@ const DOM = {
     navBtnFilters: document.querySelectorAll('.nav__filters a'),
     figures: document.querySelectorAll('figure'),
     numFound: document.querySelector('#numFound'),
-    headerView: document.querySelectorAll('.header__view li a')
+    headerView: document.querySelectorAll('.header__view a')
 
 };
 
@@ -63,13 +63,12 @@ DOM.headerView.forEach(nav => {
         nav.classList.add('active');
         if (nav.id == 'lnkViewGrid') {
             DOM.grid.classList.remove('viewList');
+
             DOM.grid.classList.add('viewGrid');
         } else if (nav.id == 'lnkViewList') {
             DOM.grid.classList.remove('viewGrid');
             DOM.grid.classList.add('viewList');
         }
-        const activeFilter = document.querySelector('.nav__filters a.active');
-        activeFilter.click();
     });
 });
 
