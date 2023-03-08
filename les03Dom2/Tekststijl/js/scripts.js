@@ -3,7 +3,7 @@ const DOM = {
   lblslider: document.querySelector('#sliderVal'),
   tekst: document.querySelector('.randomTekst p'),
   kleur: document.querySelector('#kleur'),
-  stijlBtn: document.querySelectorAll('button'),
+  stijlBtn: document.querySelectorAll('.stijlBtn button'),
   stijl1: document.querySelector('.stijl1'),
   stijl2: document.querySelector('.stijl2'),
   stijl3: document.querySelector('.stijl3'),
