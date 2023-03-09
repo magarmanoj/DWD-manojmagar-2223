@@ -1,0 +1,35 @@
+.soortPralines {
+    display: flex;
+    list-style-type: none;
+    margin-bottom: 2em;
+}
+
+.soortPralines li {
+    display: inline-block;
+    width: 20%;
+}
+
+.soortPralines img {
+    width: 100%;
+    cursor: pointer;
+}
+
+
+dl {
+    margin-top: 20px;
+}
+
+dt {
+    font-weight: bold;
+    margin-bottom: 2em;
+}
+
+dd {
+    margin: 0;
+}
+
+
+
+body p {
+    font-style: italic;
+}

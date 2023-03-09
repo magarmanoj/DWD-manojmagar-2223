@@ -11,7 +11,7 @@ const DOM = {
 };
 
 DOM.stijlBtn.forEach(btn => {
-  btn.addEventListener('click', function(){
+  btn.addEventListener('click', function() {
     console.log(btn.id);
     DOM.tekst.classList.remove('style1', 'style2', 'style3');
     if (btn.id == 'stijl1') {
@@ -24,17 +24,17 @@ DOM.stijlBtn.forEach(btn => {
   });
 });
 
-DOM.slider.addEventListener('input', function(){
+DOM.slider.addEventListener('input', function() {
   DOM.lblslider.innerHTML = `${DOM.slider.value}px`;
   DOM.tekst.style.fontSize = `${DOM.slider.value}px`;
 });
 
-DOM.kleur.addEventListener('input', function (){
+DOM.kleur.addEventListener('input', function() {
   DOM.tekst.style.color = DOM.kleur.value;
 });
 
 DOM.checkboxes.forEach(checkbox => {
-  checkbox.addEventListener('change', function(){
+  checkbox.addEventListener('change', function() {
     const effect = checkbox.dataset.effect;
     if (checkbox.checked) {
       DOM.tekst.classList.add(effect);
