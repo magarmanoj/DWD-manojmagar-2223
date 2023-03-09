@@ -16,13 +16,18 @@
 
 dt {
     font-weight: bold;
+    margin-bottom: 15px;
 }
 
-.soortPralines li a img.active {
+.soortPralines li img.active {
     filter: brightness(95%);
 }
 
 
 body p {
     font-style: italic;
+}
+
+body{
+    font-size: 1.5em;
 }
