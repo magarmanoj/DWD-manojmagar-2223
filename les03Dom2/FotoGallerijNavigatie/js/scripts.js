@@ -56,6 +56,7 @@ body.addEventListener('keydown', function(e) {
    } else if (e.ctrlKey && e.key >= '1' && e.key <= '5') {
       // stackoverflow https://stackoverflow.com/questions/11884372/ctrl-number-key-using-javascript-in-browser-to-trigger-an-event 
       // ze gebruiken e.keyCode voor de nummer dus ASCII.
+      // e.ctrlKey && /[1-4]/.test(e.key) via
       e.preventDefault();
       photoIndex = e.key;
       showPhoto(photoIndex - 1);
