@@ -13,8 +13,8 @@ DOM.photos.forEach(photo => {
         photo.classList.add('active');
 
         DOM.naam.innerHTML = photo.getAttribute('alt');
-        DOM.calorieën.innerHTML = photo.parentNode.getAttribute('data-calorieën');
-        DOM.beschrijving.innerHTML = photo.parentNode.getAttribute('data-beschrijving');
+        DOM.calorieën.innerHTML = photo.parentNode.dataset.calorieën;
+        DOM.beschrijving.innerHTML = photo.parentNode.dataset.beschrijving;
     });    
 });
 
