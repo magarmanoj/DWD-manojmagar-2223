@@ -1,6 +1,7 @@
 const DOM = {
     quotes: document.querySelector('.quote'),
-    categories: document.querySelector('#category')
+    categories: document.querySelector('#category'),
+    img: document.querySelector('img')
 };
 
 DOM.categories.addEventListener('change', () => {
@@ -22,6 +23,7 @@ async function giveQuote(category = '') {
     }
     const data = await resp.json();
     DOM.quotes.innerHTML = `${data.value}<cite>Chuck Norris</cite>`;
+    DOM.img.src = `<img src="${data.icon_url}" alt="Chuck Norris icon">`; 
 }
 
 async function giveQuoteZonderCat() {
@@ -33,6 +35,7 @@ async function giveQuoteZonderCat() {
     }
     const data = await resp.json();
     DOM.quotes.innerHTML = `${data.value}<cite>Chuck Norris</cite>`;
+    DOM.img.src = `<img src="${data.icon_url}" alt="Chuck Norris icon">`; 
 }
 
 giveQuoteZonderCat();
