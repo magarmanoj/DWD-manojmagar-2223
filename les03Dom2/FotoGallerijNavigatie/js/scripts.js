@@ -2,41 +2,42 @@ const figBig = document.querySelector('#figBig');
 const thumbLinks = document.querySelectorAll('.thumbs a');
 const navbuttons = document.querySelectorAll('.navbuttons button');
 const body = document.querySelector('body');
+let photoIndex = 0;
 
-function showImage(lnk) {
+function showImage(lnk, index) {
    figBig.querySelector('img').src = lnk.href;
    figBig.querySelector('figcaption').innerHTML = lnk.querySelector('img').alt;
    document.querySelector('.thumbs .active').classList.remove('active');
    lnk.classList.add('active');
+   photoIndex = index;
 }
 
-thumbLinks.forEach(lnk => {
-   lnk.addEventListener('click', function(e) {
+thumbLinks.forEach((lnk, index) => {
+   lnk.addEventListener('click', function (e) {
       e.preventDefault();
-      showImage(lnk);
+      showImage(lnk, index);
    });
 });
 
-let photoIndex = 0;
 
 function showPhoto(photoNr) {
    if (photoNr == 'next') {
-       photoIndex++;
-       if (photoIndex >= thumbLinks.length) {
-           photoIndex = 0;
-       }
+      photoIndex++;
+      if (photoIndex >= thumbLinks.length) {
+         photoIndex = 0;
+      }
    }
    else {
-       photoIndex--;
-       if (photoIndex < 0) {
-           photoIndex = thumbLinks.length - 1;
-       }  
+      photoIndex--;
+      if (photoIndex < 0) {
+         photoIndex = thumbLinks.length - 1;
+      }
    }
-   showImage(thumbLinks[photoIndex]);
+   showImage(thumbLinks[photoIndex], photoIndex);
 }
 
 navbuttons.forEach(btn => {
-   btn.addEventListener('click', function() {
+   btn.addEventListener('click', function () {
       if (btn.dataset.richting == 'prev') {
          showPhoto('prev');
       } else {
@@ -46,20 +47,20 @@ navbuttons.forEach(btn => {
 });
 
 
-body.addEventListener('keydown', function(e) {
+body.addEventListener('keydown', function (e) {
    if (e.key === 'ArrowRight') {
-     showPhoto('next');
+      showPhoto('next');
    } else if (e.key === 'ArrowLeft') {
-     showPhoto('prev');
+      showPhoto('prev');
 
-     // photonummer zijn van 0-4 maar e.key is vanaf 1-5 dus je moet -1 doen voor photoIndex
+      // photonummer zijn van 0-4 maar e.key is vanaf 1-5 dus je moet -1 doen voor photoIndex
    } else if (e.ctrlKey && e.key >= '1' && e.key <= '5') {
       // stackoverflow https://stackoverflow.com/questions/11884372/ctrl-number-key-using-javascript-in-browser-to-trigger-an-event 
       // ze gebruiken e.keyCode voor de nummer dus ASCII.
       // e.ctrlKey && /[1-4]/.test(e.key) via
       e.preventDefault();
-      photoIndex = e.key;
-      showPhoto(photoIndex - 1);
-    }
+      photoIndex = parseInt(e.key) - 1;
+      showImage(thumbLinks[photoIndex], photoIndex);
+   }
 });
 

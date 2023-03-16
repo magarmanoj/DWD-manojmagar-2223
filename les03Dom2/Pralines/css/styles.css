@@ -10,8 +10,9 @@
 }
 
 .soortPralines img {
-    width: 100%;
     cursor: pointer;
+    width: 100%;
+
 }
 
 dt {
@@ -28,6 +29,6 @@ body p {
     font-style: italic;
 }
 
-body{
+body {
     font-size: 1.5em;
 }
