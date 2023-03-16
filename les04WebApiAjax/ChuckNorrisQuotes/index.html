@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,16 +8,31 @@
     <link rel="stylesheet" href="css/styles.css">
     <title>ChuchNorrisQuotes</title>
 </head>
+
 <body>
     <div>
+        <form action="" class="comboBox">
+            <label for="category">Select a category:</label>
+            <select id="category" name="category">
+                <option value="">-- Select a category --</option>
+                <option value="food">Food</option>
+                <option value="movie">Movie</option>
+                <option value="science">Science</option>
+                <option value="dev">Dev</option>
+                <option value="travel">Travel</option>
+            </select>
+        </form>
+    </div>
+    <div>
         <blockquote class="quote">
-
+            <cite>Chuck Norris Quotes</cite>
         </blockquote>
     </div>
     <div>
-        <img src="img/Schermafbeelding 2023-03-16 154133.png" alt="ChuckNorris">
+        <img src="img/Norries.png" alt="ChuckNorris">
     </div>
     <script src="js/scripts.js"></script>
-    
+
 </body>
+
 </html>
