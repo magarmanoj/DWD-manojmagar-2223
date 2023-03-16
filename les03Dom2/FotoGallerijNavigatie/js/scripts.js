@@ -13,7 +13,7 @@ function showImage(lnk, index) {
 }
 
 thumbLinks.forEach((lnk, index) => {
-   lnk.addEventListener('click', function (e) {
+   lnk.addEventListener('click', function(e) {
       e.preventDefault();
       showImage(lnk, index);
    });
@@ -37,7 +37,7 @@ function showPhoto(photoNr) {
 }
 
 navbuttons.forEach(btn => {
-   btn.addEventListener('click', function () {
+   btn.addEventListener('click', function() {
       if (btn.dataset.richting == 'prev') {
          showPhoto('prev');
       } else {
@@ -47,7 +47,7 @@ navbuttons.forEach(btn => {
 });
 
 
-body.addEventListener('keydown', function (e) {
+body.addEventListener('keydown', function(e) {
    if (e.key === 'ArrowRight') {
       showPhoto('next');
    } else if (e.key === 'ArrowLeft') {
