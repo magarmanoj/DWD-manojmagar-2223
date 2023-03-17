@@ -4,38 +4,31 @@ const DOM = {
     img: document.querySelector('#imgSrc')
 };
 
-DOM.categories.addEventListener('change', () => {
-    const category = DOM.categories.value;
-    if (category) {
-        giveQuote(category);
+async function getCategories() {
+    const url = 'https://api.chucknorris.io/jokes/categories';
+    const resp = await fetch(url);
+    if (!resp.ok) return console.log('mislukt');
+    const categoriesSelect = await resp.json();
+    let optionsHTML = '<option value="">--Select a category--</option>';
+    for (let i = 0; i < categoriesSelect.length; i++) {
+      optionsHTML += '<option value="' + categoriesSelect[i] + '">' + categoriesSelect[i] + '</option>';
     }
-    else {
-        giveQuoteZonderCat();
-    }
-});
+    DOM.categories.innerHTML = optionsHTML;
+}
 
 async function giveQuote(category = '') {
-    const url = `https://api.chucknorris.io/jokes/random?category=${category}`;
+    const url = category ? `https://api.chucknorris.io/jokes/random?category=${category}` : 'https://api.chucknorris.io/jokes/random';
     const resp = await fetch(url);
-    if (!resp.ok) {
-        console.log('mislukt');
-        return;
-    }
+    if (!resp.ok) return console.log('mislukt');
     const data = await resp.json();
     DOM.quotes.innerHTML = `${data.value}<cite>Chuck Norris</cite>`;
-    DOM.img.src = `<img src="${data.icon_url}" alt="">`; 
+    DOM.img.src = data.icon_url;
 }
 
-async function giveQuoteZonderCat() {
-    const url = 'https://api.chucknorris.io/jokes/random';
-    const resp = await fetch(url);
-    if (!resp.ok) {
-        console.log('mislukt');
-        return;
-    }
-    const data = await resp.json();
-    DOM.quotes.innerHTML = `${data.value}<cite>Chuck Norris</cite>`;
-    DOM.img.src = `<img src="${data.icon_url}" alt="">`; 
-}
+DOM.categories.addEventListener('change', () => {
+    const category = DOM.categories.value;
+    giveQuote(category);
+});
 
-giveQuoteZonderCat();
+getCategories();
+giveQuote();
