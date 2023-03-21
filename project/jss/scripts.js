@@ -6,3 +6,4 @@ buttons.forEach((button) => {
   const bgcolor = `rgb(${+Math.random() * 255}, ${+Math.random() * 255}, ${+Math.random() * 255})`;
   button.style.backgroundColor = bgcolor;
 });
+
