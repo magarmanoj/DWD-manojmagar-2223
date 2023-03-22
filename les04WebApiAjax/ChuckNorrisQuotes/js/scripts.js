@@ -11,7 +11,7 @@ async function getCategories() {
     const categoriesSelect = await resp.json();
     let optionsHTML = '<option value="">--Select a category--</option>';
     for (let i = 0; i < categoriesSelect.length; i++) {
-      optionsHTML += '<option value="' + categoriesSelect[i] + '">' + categoriesSelect[i] + '</option>';
+        optionsHTML += '<option value="' + categoriesSelect[i] + '">' + categoriesSelect[i] + '</option>';
     }
     DOM.categories.innerHTML = optionsHTML;
 }
