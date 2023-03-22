@@ -13,12 +13,12 @@ const DOM = {
 };
 
 async function getStatus() {
-  const apiKey = '4xmKl1khhOcc0dd4FVoWln1OajsH1zwRcQpMdtkC';
+  const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
   const url = `https://freesound.org/apiv2/search/text/?query=piano&token=${apiKey}`;
   const resp = await fetch(url);
 
   if (!resp.ok) return console.log('mislukt');
   const data = await resp.json();
-  DOM.stats.innerHTML = `${data}`;
+  DOM.stats.innerHTML = `${data.value}`;
 }
 getStatus();
