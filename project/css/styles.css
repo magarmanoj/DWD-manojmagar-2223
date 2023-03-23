@@ -115,20 +115,21 @@ search bar
 sound buttons
 =========================*/
 .soundwrapper {
-  align-items: center;
+  align-items: center;   
   display: flex;
   flex-direction: row;
+  padding: 10px;
   justify-content: space-between;
-  width: 90%;
+  width: 100%;
 }
 
 .sound {
   height: 94px;
+  margin-bottom: 10px;
   overflow: hidden;
   position: relative;
-  width: 8rem;
+  width: 94px;
 }
-
 .sound__button {
   background: url(../img/button_normal.webp) no-repeat;
   border: 0;
@@ -153,6 +154,7 @@ sound buttons
   width: 94px;
 }
 
+
 /*=================
 favorite
 ==================*/
@@ -164,12 +166,18 @@ favorite
 .favorite{
   width: 135%;
 }
-
-
 .favorite ul{
   list-style: none;
   display: flex;
   justify-content: space-evenly;
+}
+
+#sound-waveform,
+#sound-time {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: red;
 }
 
 /*=============
