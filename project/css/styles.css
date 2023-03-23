@@ -62,7 +62,7 @@ navigation
 /*=====================
 main sections
 ======================*/
-.main_section,
+.dashboardContainer,
 .middle_section {
   margin-bottom: 2rem;
 }
@@ -172,12 +172,12 @@ favorite
   justify-content: space-evenly;
 }
 
-#sound-waveform,
-#sound-time {
+.sound-waveform,
+.sound-time {
+  height: 50px;
   position: absolute;
   bottom: 0;
   left: 0;
-  color: red;
 }
 
 /*=============
