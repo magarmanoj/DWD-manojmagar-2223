@@ -2,11 +2,11 @@ const bgcolor = `rgb(${+Math.random() * 255}, ${+Math.random() * 255}, ${+Math.r
 document.querySelector('#demobutton .sound__background').style.backgroundColor = bgcolor;
 
 
-// const buttons = document.querySelectorAll('.sound__background');
-// buttons.forEach((button) => {
-//   const bgcolor = `rgb(${+Math.random() * 255}, ${+Math.random() * 255}, ${+Math.random() * 255})`;
-//   button.style.backgroundColor = bgcolor;
-// });
+const buttons = document.querySelectorAll('.sound__background');
+buttons.forEach((button) => {
+  const bgcolor = `rgb(${+Math.random() * 255}, ${+Math.random() * 255}, ${+Math.random() * 255})`;
+  button.style.backgroundColor = bgcolor;
+});
 
 // const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
 // const search = 'piano';
