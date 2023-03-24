@@ -1,57 +1,45 @@
 const DOM = {
-  buttons: document.querySelectorAll('.sound__background'),
+  buttonsBackground: document.querySelectorAll('.sound__background'),
   canvas: document.querySelector('.sound-waveform'),
   times: document.querySelector('.sound-time'),
-  searchs: document.querySelector('.inpSearch')
+  searchs: document.querySelector('#inpSearch'),
+  buttons: document.querySelector('.sound__button')
 };
 
 const sounds = [];
 
-DOM.buttons.forEach((button, i) => {
+DOM.buttonsBackground.forEach((button, i) => {
   const bgcolor = `rgb(${+Math.random() * 255}, ${+Math.random() * 255}, ${+Math.random() * 255})`;
   button.style.backgroundColor = bgcolor;
-  button.addEventListener('click', () => {
-    const sound = sounds[i];
-    if (sound && sound.id) {
-      playSound(sound);
-    }
+  const search = button.dataset.searchTerm;
+  let soundInfo = getStatus(search);
+  DOM.buttons.addEventListener('click', () => {
+    soundInfo = sounds[i];
+    playSound(soundInfo);
   });
 });
 
-
 const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
 
-async function getStatus() {
-  const search = 'piano';
+async function getStatus(search) {
   const url = `https://freesound.org/apiv2/search/text/?query=${search}&token=${apiKey}`;
   const resp = await fetch(url);
 
   if (!resp.ok) return console.log('mislukt');
   const data = await resp.json();
-  for (let i = 0; i < 5; i++) {
-    const sound = data.results[i];
-    sounds.push(sound);
-    console.log(sounds);
-  }
+  const eersteVierSounds = data.results.slice(0, 4);
+  sounds.push(eersteVierSounds);
+  console.log(sounds);
+  return eersteVierSounds;
 }
 
-// async function playSound(sound) {
-//   const url = `https://freesound.org/apiv2/sounds/${sound.id}/?token=${apiKey}`;
-//   const resp = await fetch(url);
-//   if (!resp.ok) return console.log('mislukt');
-
-//   const data = await resp.json();
-//   const audioContext = new AudioContext();
-//   const audioBuffer = await fetch(data.previews['preview-hq-mp3']).then(response => response.arrayBuffer());
-//   const audioSource = audioContext.createBufferSource();
-//   audioContext.decodeAudioData(audioBuffer, decodedData => {
-//     audioSource.buffer = decodedData;
-//     audioSource.connect(audioContext.destination);
-//     audioSource.start();
-//   });
-// }
-
-getStatus();
-
-
-// DOM.searchs.addEventListener('change', getStatus);
+if (DOM.searchs) {
+  DOM.searchs.addEventListener('keyup', async(event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      const searchTerm = DOM.searchs.value;
+      await getStatus(searchTerm);
+      DOM.searchs.value = '';
+    }
+  });
+}
