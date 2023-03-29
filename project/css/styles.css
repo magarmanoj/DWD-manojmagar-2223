@@ -158,18 +158,24 @@ sound buttons
 /*=================
 favorite
 ==================*/
-.section_middle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
 .favorite{
-  width: 135%;
-}
-.favorite ul{
-  list-style: none;
+  align-items: center;
   display: flex;
-  justify-content: space-evenly;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.fav_icon {
+  margin-left: 75px;
+  border: transparent;
+}
+
+.fav_icon:hover {
+  transform: scale(1.1);
+  background-color: grey;
 }
 
 .sound-waveform,

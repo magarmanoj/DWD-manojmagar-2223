@@ -4,6 +4,9 @@ const DOM = {
   times: document.querySelector('.sound-time'),
   searchs: document.querySelector('#inpSearch'),
   buttons: document.querySelectorAll('.sound__button'),
+  favoriten: document.querySelectorAll('.fav_icon'),
+
+
   durations: document.querySelector('.sound-time'),
   wave: document.querySelector('.sound-waveform')
   
@@ -75,3 +78,9 @@ DOM.buttons.forEach((button, i) => {
   });
 });
 
+// favorite
+DOM.favoriten.forEach(fav => {
+  fav.addEventListener('click', function(e) {
+    e.preventDefault();
+  });
+});
