@@ -1,5 +1,5 @@
 const DOM = {
-  dashboardFavs: document.querySelector('.dashboardList'),
+  dashboardFavs: document.querySelector('.dashboardContainer'),
   buttonsBackground: document.querySelectorAll('.sound__background'),
   canvas: document.querySelector('.sound-waveform'),
   times: document.querySelector('.sound-time'),
