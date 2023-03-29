@@ -1,4 +1,5 @@
 const DOM = {
+  dashboardFavs: document.querySelector('.dashboardList'),
   buttonsBackground: document.querySelectorAll('.sound__background'),
   canvas: document.querySelector('.sound-waveform'),
   times: document.querySelector('.sound-time'),
@@ -79,8 +80,13 @@ DOM.buttons.forEach((button, i) => {
 });
 
 // favorite
-DOM.favoriten.forEach(fav => {
+let dashBoardList = [];
+
+DOM.favoriten.forEach((fav, i) => {
   fav.addEventListener('click', function(e) {
     e.preventDefault();
+    const fav = sounds[i];
+    dashBoardList += fav.name;
+    DOM.dashboardFavs.textContent = dashBoardList;
   });
 });
