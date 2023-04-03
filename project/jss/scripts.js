@@ -14,7 +14,7 @@ const DOM = {
 };
 
 let currentAudio = null;
-let sounds = [];
+let infos = [];
 const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
 const preview = 'preview-hq-mp3';
 
@@ -33,12 +33,24 @@ async function getStatus(search) {
   const data = await resp.json();
   const eersteVierSounds = data.results.slice(0, 4);
 
-  sounds = [];
+  infos = [];
   for (let i = 0; i < eersteVierSounds.length; i++) {
-    sounds.push(eersteVierSounds[i]);
+    infos.push(eersteVierSounds[i]);
+    console.log(infos);
   }
-  return eersteVierSounds;
+  return infos;
 }
+
+function showImageTime(index) {
+  if (DOM.searchs.value != null) {
+    const sound = infos[index];
+    DOM.durations.textContent = sound.duration;
+    DOM.canvas.src = sound.images.waveform_l;
+    console.log(DOM.canvas.src);
+    console.log(DOM.durations.textContent);
+  }
+}
+
 
 // search bar
 if (DOM.searchs) {
@@ -49,7 +61,6 @@ if (DOM.searchs) {
       await getStatus(searchTerm);
       DOM.searchs.value = '';
       DOM.buttons.forEach(button => button.classList.remove('active'));
-
       if (currentAudio) {
         currentAudio.pause();
         currentAudio = null;
@@ -72,7 +83,7 @@ function playSound(sound) {
 
 DOM.buttons.forEach((button, i) => {
   button.addEventListener('click', function() {
-    const sound = sounds[i];
+    const sound = infos[i];
     console.log(`button is clicked and sound is: ${sound.id}`);
     
     DOM.buttons.forEach((clicked) => {
@@ -90,17 +101,18 @@ DOM.buttons.forEach((button, i) => {
     } else {
       playSound(sound);
     }
+    showImageTime(i);
   });
 });
 
 // favorite
-let dashBoardList = [];
+// let dashBoardList = [];
 
-DOM.favoriten.forEach((fav, i) => {
-  fav.addEventListener('click', function(e) {
-    e.preventDefault();
-    const fav = sounds[i];
-    dashBoardList += fav.name + '\r\n';
-    DOM.dashboardFavs.textContent = dashBoardList;
-  });
-});
+// DOM.favoriten.forEach((fav, i) => {
+//   fav.addEventListener('click', function(e) {
+//     e.preventDefault();
+//     const fav = sounds[i];
+//     dashBoardList += fav.name + '\r\n';
+//     DOM.dashboardFavs.textContent = dashBoardList;
+//   });
+// });

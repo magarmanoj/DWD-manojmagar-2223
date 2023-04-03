@@ -158,6 +158,18 @@ sound buttons
   width: 94px;
 }
 
+.sound-waveform {
+  height: 50px;
+  width: 100%;
+  background-color: #f5f5f5;
+  margin-bottom: 10px;
+}
+
+.sound-time {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 10px;
+}
 
 /*=================
 favorite
@@ -182,13 +194,7 @@ favorite
   background-color: grey;
 }
 
-.sound-waveform,
-.sound-time {
-  height: 50px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
+
 
 /*=============
 footer
