@@ -13,6 +13,9 @@ const DOM = {
   
 };
 
+let currentAudio = null;
+const currentButton = null;
+const preview = 'preview-hq-mp3';
 let sounds = [];
 const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
 
@@ -46,15 +49,19 @@ if (DOM.searchs) {
       const searchTerm = DOM.searchs.value;
       await getStatus(searchTerm);
       DOM.searchs.value = '';
+      DOM.buttons.forEach(button => button.classList.remove('active'));
+
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+      }
     }
   });
 }
 
 // buttons and sound 
-let currentAudio = null;
-
 function playSound(sound) {
-  const audio = new Audio(sound.previews['preview-hq-mp3']);
+  const audio = new Audio(sound.previews[preview]);
 
   // al sound aan het spelen ==>  pasue ELSE currentAudio is audio (new sound)
   if (currentAudio != null) {
@@ -68,9 +75,17 @@ DOM.buttons.forEach((button, i) => {
   button.addEventListener('click', function() {
     const sound = sounds[i];
     console.log(`button is clicked and sound is: ${sound.id}`);
+    
+    DOM.buttons.forEach((clicked) => {
+      if (clicked != this) {
+        clicked.classList.remove('active');
+      }
+    });
+    
+    this.classList.toggle('active');
 
     // checks als er sound aan het spelen is en of het zelfde sound is dan vorige ==> pause ELSE playSound
-    if (currentAudio != null && currentAudio.src == sound.previews['preview-hq-mp3']) {
+    if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
       currentAudio.pause();
       currentAudio = null;
     } else {

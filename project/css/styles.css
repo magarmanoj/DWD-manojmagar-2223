@@ -145,7 +145,7 @@ sound buttons
   width: 94px;
 }
 
-.sound__button:active {
+.sound__button.active {
   background: url(../img/button_down.webp) no-repeat;
 }
 
