@@ -14,10 +14,9 @@ const DOM = {
 };
 
 let currentAudio = null;
-const currentButton = null;
-const preview = 'preview-hq-mp3';
 let sounds = [];
 const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
+const preview = 'preview-hq-mp3';
 
 DOM.buttonsBackground.forEach((button) => {
   // eslint-disable-next-line no-magic-numbers
