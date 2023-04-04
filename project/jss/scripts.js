@@ -42,7 +42,7 @@ async function getStatus(search) {
 
 function showImageTime(index) {
   const sound = infos[index];
-  DOM.durations.textContent = sound.duration;
+  DOM.durations.textContent = Math.round(sound.duration);
   DOM.wave.src = sound.images.waveform_l;
   if (infos.length > 0) {
     DOM.wave.classList.remove('hidden');
@@ -62,7 +62,7 @@ if (DOM.searchs) {
     }
   });
 
-  DOM.searchs.addEventListener('keyup', async (event) => {
+  DOM.searchs.addEventListener('keyup', async(event) => {
     if (event.key == 'Enter') {
       event.preventDefault();
       const searchTerm = DOM.searchs.value;
@@ -83,12 +83,21 @@ if (DOM.searchs) {
 // buttons and sound 
 function playSound(sound) {
   const audio = new Audio(sound.previews[preview]);
+  const duration = Math.round(sound.duration);
 
   // al sound aan het spelen ==>  pasue ELSE currentAudio is audio (new sound)
   if (currentAudio != null) {
     currentAudio.pause();
   }
   currentAudio = audio;
+  audio.addEventListener('timeupdate', function() {
+    const minutes = Math.floor(audio.currentTime / 60);
+    const seconds = Math.floor(audio.currentTime % 60);
+    const durationMinutes = Math.floor(duration / 60);
+    const durationSeconds = (duration % 60);
+
+    DOM.durations.textContent = `${minutes}:${seconds}s / ${durationMinutes}:${durationSeconds} s`;
+  });
   audio.play();
 }
 
@@ -114,13 +123,6 @@ DOM.buttons.forEach((button, i) => {
   });
 });
 
-let savedSounds = localStorage.getItem('savedSounds') || '';
-if (savedSounds) {
-  const savedSoundsArr = savedSounds.split('\n');
-  savedSoundsArr.forEach(sound => {
-    DOM.dashboardFavs.innerHTML += `${sound}<br>`;
-  });
-}
 
 // favorite
 DOM.favoriten.forEach((fav) => {
@@ -130,6 +132,7 @@ DOM.favoriten.forEach((fav) => {
     const sound = infos[index];
 
     // Check if sound is already saved in the dashboard
+    let savedSounds = localStorage.getItem('savedSounds') || '';
     if (savedSounds.includes(sound.name)) {
       console.log('Sound already in dashboard');
       return;
@@ -140,8 +143,6 @@ DOM.favoriten.forEach((fav) => {
   });
 });
 
-
-// localStorage.clear();
 
 // extra redrict to email
 DOM.email.addEventListener('click', function() {
