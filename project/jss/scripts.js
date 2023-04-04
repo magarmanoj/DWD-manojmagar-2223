@@ -1,6 +1,6 @@
 const DOM = {
   dashboardFavs: document.querySelector('.dashBoard_list'),
- 
+
   buttonsBackground: document.querySelectorAll('.sound__background'),
   searchs: document.querySelector('#inpSearch'),
   buttons: document.querySelectorAll('.sound__button'),
@@ -62,7 +62,7 @@ if (DOM.searchs) {
     }
   });
 
-  DOM.searchs.addEventListener('keyup', async(event) => {
+  DOM.searchs.addEventListener('keyup', async (event) => {
     if (event.key == 'Enter') {
       event.preventDefault();
       const searchTerm = DOM.searchs.value;
@@ -90,7 +90,7 @@ function playSound(sound) {
     currentAudio.pause();
   }
   currentAudio = audio;
-  audio.addEventListener('timeupdate', function() {
+  audio.addEventListener('timeupdate', function () {
     const minutes = Math.floor(audio.currentTime / 60);
     const seconds = Math.floor(audio.currentTime % 60);
     const durationMinutes = Math.floor(duration / 60);
@@ -102,7 +102,7 @@ function playSound(sound) {
 }
 
 DOM.buttons.forEach((button, i) => {
-  button.addEventListener('click', function() {
+  button.addEventListener('click', function () {
     const sound = infos[i];
     DOM.buttons.forEach((clicked) => {
       if (clicked != this) {
@@ -127,25 +127,26 @@ DOM.dashboardFavs.innerHTML = localStorage.getItem('savedSounds');
 
 // favorite
 DOM.favoriten.forEach((fav) => {
-  fav.addEventListener('click', function(e) {
+  fav.addEventListener('click', function (e) {
     e.preventDefault();
     const index = parseInt(e.target.parentNode.getAttribute('data-index'));
     const sound = infos[index];
 
     // Check if sound is already saved in the dashboard
-    let savedSounds = localStorage.getItem('savedSounds') || '';
+    const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
     if (savedSounds.includes(sound.name)) {
       console.log('Sound already in dashboard');
       return;
     }
-    savedSounds += `${sound.name}\n`;
+    savedSounds.push(sound.name);
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
     DOM.dashboardFavs.innerHTML += `${sound.name}\n`;
   });
 });
 
+
 // localStorage.clear();
 // extra redrict to email
-DOM.email.addEventListener('click', function() {
+DOM.email.addEventListener('click', function () {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';
 });
