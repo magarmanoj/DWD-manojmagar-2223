@@ -6,7 +6,8 @@ const DOM = {
   favoriten: document.querySelectorAll('.fav_icon'),
   durations: document.querySelector('.sound-time'),
   wave: document.querySelector('.sound-waveform'),
-  msg: document.querySelector('#lblMsg')
+  msg: document.querySelector('#lblMsg'),
+  email: document.querySelector('.email')
 };
 
 
@@ -39,20 +40,32 @@ async function getStatus(search) {
 }
 
 function showImageTime(index) {
-  if (DOM.searchs.value != null) {
-    const sound = infos[index];
-    DOM.durations.textContent = sound.duration;
-    DOM.wave.src = sound.images.waveform_l;
+  const sound = infos[index];
+  DOM.durations.textContent = sound.duration;
+  DOM.wave.src = sound.images.waveform_l;
+  if (infos.length > 0) {
+    DOM.wave.classList.remove('hidden');
+  } else {
+    DOM.wave.classList.add('hidden');
   }
 }
 
 // search bar
 if (DOM.searchs) {
-  DOM.searchs.addEventListener('keyup', async(event) => {
+  DOM.searchs.addEventListener('input', () => {
+    const searchTerm = DOM.searchs.value;
+    if (searchTerm === '') {
+      DOM.msg.textContent = 'Geef een zoekterm in';
+    } else {
+      DOM.msg.textContent = '';
+    }
+  });
+
+  DOM.searchs.addEventListener('keyup', async (event) => {
     if (event.key == 'Enter') {
       event.preventDefault();
       const searchTerm = DOM.searchs.value;
-      if (searchTerm == '') {
+      if (searchTerm === '') {
         DOM.msg.textContent = 'Geef een zoekterm in';
       }
       await getStatus(searchTerm);
@@ -79,7 +92,7 @@ function playSound(sound) {
 }
 
 DOM.buttons.forEach((button, i) => {
-  button.addEventListener('click', function() {
+  button.addEventListener('click', function () {
     const sound = infos[i];
     DOM.buttons.forEach((clicked) => {
       if (clicked != this) {
@@ -102,7 +115,7 @@ DOM.buttons.forEach((button, i) => {
 
 // favorite
 DOM.favoriten.forEach((fav) => {
-  fav.addEventListener('click', function(e) {
+  fav.addEventListener('click', function (e) {
     e.preventDefault();
     const index = parseInt(e.target.parentNode.getAttribute('data-index'));
     const sound = infos[index];
@@ -119,7 +132,13 @@ DOM.favoriten.forEach((fav) => {
     }
     savedSounds += `${sound.name}\n`;
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
-    const savedSoundsArray = savedSounds.split('\n');
-    DOM.dashboardFavs.innerHTML = savedSoundsArray.join('<br>');
+    DOM.dashboardFavs.innerHTML += savedSounds;
   });
+});
+
+// localStorage.clear();
+
+// extra redrict to email
+DOM.email.addEventListener('click', function () {
+  window.location.href = 'mailto:manoj.magar@student.odisee.be';
 });

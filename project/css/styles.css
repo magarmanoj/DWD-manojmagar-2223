@@ -166,11 +166,16 @@ sound buttons
 }
 
 .sound-waveform {
+  display: block;
   height: 50px;
   width: 100%;
   background-color: #f5f5f5;
   margin-bottom: 10px;
 }
+.sound-waveform.hidden {
+  display: none; 
+}
+
 
 .sound-time {
   font-size: 14px;
@@ -213,9 +218,9 @@ footer {
 
 footer a {
   color: #333;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 footer a:hover {
-  text-decoration: underline;
+  color: red;
 }
