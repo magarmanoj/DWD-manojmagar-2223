@@ -30,11 +30,11 @@ async function getStatus(search) {
 
   if (!resp.ok) return console.log('mislukt');
   const data = await resp.json();
-  const eersteVierSounds = data.results.slice(0, 4);
+  const eersteVierGeluiden = data.results.slice(0, 4);
 
   infos = [];
-  for (let i = 0; i < eersteVierSounds.length; i++) {
-    infos.push(eersteVierSounds[i]);
+  for (let i = 0; i < eersteVierGeluiden.length; i++) {
+    infos.push(eersteVierGeluiden[i]);
     console.log(infos);
   }
   return infos;
@@ -114,17 +114,20 @@ DOM.buttons.forEach((button, i) => {
   });
 });
 
+let savedSounds = localStorage.getItem('savedSounds') || '';
+if (savedSounds) {
+  const savedSoundsArr = savedSounds.split('\n');
+  savedSoundsArr.forEach(sound => {
+    DOM.dashboardFavs.innerHTML += `${sound}<br>`;
+  });
+}
+
 // favorite
 DOM.favoriten.forEach((fav) => {
   fav.addEventListener('click', function(e) {
     e.preventDefault();
     const index = parseInt(e.target.parentNode.getAttribute('data-index'));
     const sound = infos[index];
-
-    let savedSounds = localStorage.getItem('savedSounds') || '';
-    if (localStorage.getItem('savedSounds')) {
-      savedSounds += JSON.parse(localStorage.getItem('savedSounds'));
-    }
 
     // Check if sound is already saved in the dashboard
     if (savedSounds.includes(sound.name)) {
@@ -133,7 +136,7 @@ DOM.favoriten.forEach((fav) => {
     }
     savedSounds += `${sound.name}\n`;
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
-    DOM.dashboardFavs.innerHTML += savedSounds;
+    DOM.dashboardFavs.innerHTML += `${sound.name}<br>`;
   });
 });
 
