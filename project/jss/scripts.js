@@ -1,17 +1,14 @@
 const DOM = {
-  dashboardFavs: document.querySelector('.dashBoard_list'),
+  dashboardFavs: document.querySelector('.dashBoard_text'),
   buttonsBackground: document.querySelectorAll('.sound__background'),
-  canvas: document.querySelector('.sound-waveform'),
-  times: document.querySelector('.sound-time'),
   searchs: document.querySelector('#inpSearch'),
   buttons: document.querySelectorAll('.sound__button'),
   favoriten: document.querySelectorAll('.fav_icon'),
-
-
   durations: document.querySelector('.sound-time'),
-  wave: document.querySelector('.sound-waveform')
-  
+  wave: document.querySelector('.sound-waveform'),
+  msg: document.querySelector('#lblMsg')
 };
+
 
 let currentAudio = null;
 let infos = [];
@@ -45,19 +42,19 @@ function showImageTime(index) {
   if (DOM.searchs.value != null) {
     const sound = infos[index];
     DOM.durations.textContent = sound.duration;
-    DOM.canvas.src = sound.images.waveform_l;
-    console.log(DOM.canvas.src);
-    console.log(DOM.durations.textContent);
+    DOM.wave.src = sound.images.waveform_l;
   }
 }
-
 
 // search bar
 if (DOM.searchs) {
   DOM.searchs.addEventListener('keyup', async(event) => {
-    if (event.key === 'Enter') {
+    if (event.key == 'Enter') {
       event.preventDefault();
       const searchTerm = DOM.searchs.value;
+      if (searchTerm == '') {
+        DOM.msg.textContent = 'Geef een zoekterm in';
+      }
       await getStatus(searchTerm);
       DOM.searchs.value = '';
       DOM.buttons.forEach(button => button.classList.remove('active'));
@@ -84,14 +81,12 @@ function playSound(sound) {
 DOM.buttons.forEach((button, i) => {
   button.addEventListener('click', function() {
     const sound = infos[i];
-    console.log(`button is clicked and sound is: ${sound.id}`);
-    
     DOM.buttons.forEach((clicked) => {
       if (clicked != this) {
         clicked.classList.remove('active');
       }
     });
-    
+
     this.classList.toggle('active');
 
     // checks als er sound aan het spelen is en of het zelfde sound is dan vorige ==> pause ELSE playSound
@@ -106,13 +101,25 @@ DOM.buttons.forEach((button, i) => {
 });
 
 // favorite
-// let dashBoardList = [];
+DOM.favoriten.forEach((fav) => {
+  fav.addEventListener('click', function(e) {
+    e.preventDefault();
+    const index = parseInt(e.target.parentNode.getAttribute('data-index'));
+    const sound = infos[index];
 
-// DOM.favoriten.forEach((fav, i) => {
-//   fav.addEventListener('click', function(e) {
-//     e.preventDefault();
-//     const fav = sounds[i];
-//     dashBoardList += fav.name + '\r\n';
-//     DOM.dashboardFavs.textContent = dashBoardList;
-//   });
-// });
+    let savedSounds = localStorage.getItem('savedSounds') || '';
+    if (localStorage.getItem('savedSounds')) {
+      savedSounds += JSON.parse(localStorage.getItem('savedSounds'));
+    }
+
+    // Check if sound is already saved in the dashboard
+    if (savedSounds.includes(sound.name)) {
+      console.log('Sound already in dashboard');
+      return;
+    }
+    savedSounds += `${sound.name}\n`;
+    localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
+    const savedSoundsArray = savedSounds.split('\n');
+    DOM.dashboardFavs.innerHTML = savedSoundsArray.join('<br>');
+  });
+});

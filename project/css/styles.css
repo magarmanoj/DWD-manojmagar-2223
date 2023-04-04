@@ -81,7 +81,7 @@ dashboard container
 }
 
 .dashBoard_list{
-  display: block;
+  white-space: pre-line;
 }
 
 /*=============
@@ -90,7 +90,6 @@ search bar
 #frmSearch {
   display: flex;
   align-items: center;
-  justify-content: center;
   width: 100%;
 }
 
@@ -112,6 +111,14 @@ search bar
 .searchBar input[type="text"]:focus {
   outline: none;
   border-color: #333;
+}
+
+#lblMsg {
+  width: 35%;
+  align-items: end;
+  color:red;
+  font-weight:lighter;
+  padding-top:0.5em;
 }
 
 

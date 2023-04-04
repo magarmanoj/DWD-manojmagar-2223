@@ -28,7 +28,7 @@
             <div class="dashboardContainer">
                 <h2>My Dashboard</h2>
                 <div class="dashBoard_list">
-                    ...
+                    <p class="dashBoard_text"></p>
                 </div>
             </div>
             <div class="middle_section">
@@ -37,6 +37,7 @@
                         <label>search:</label>
                         <input id="inpSearch" type="text" placeholder="enter keyword and press enter" />
                     </form>
+                    <p id="lblMsg"></p>
                 </div>
                 <div class="section_middle">
                     <div class="soundwrapper" id="demobutton">
@@ -57,32 +58,34 @@
                             <button class="sound__button" type="button">&nbsp;</button>
                         </div>
                     </div>
+                    <div class="favorite">
+                        <button class="fav_icon" data-index="0">
+                            <span class="material-symbols-outlined">
+                                favorite
+                            </span>
+                        </button>
+                        <button class="fav_icon" data-index="1">
+                            <span class="material-symbols-outlined">
+                                favorite
+                            </span>
+                        </button>
+                        <button class="fav_icon" data-index="2">
+                            <span class="material-symbols-outlined">
+                                favorite
+                            </span>
+                        </button>
+                        <button class="fav_icon" data-index="3">
+                            <span class="material-symbols-outlined">
+                                favorite
+                            </span>
+                        </button>
+                    </div>
+
                     <div class="sound__details">
                         <img class="sound-waveform" src="" alt="Waveform image">
                         <span class="sound-time"></span>
                     </div>
-                    <div class="favorite">
-                        <button class="fav_icon">
-                            <span class="material-symbols-outlined">
-                                favorite
-                            </span>
-                        </button>
-                        <button class="fav_icon">
-                            <span class="material-symbols-outlined">
-                                favorite
-                            </span>
-                        </button>
-                        <button class="fav_icon">
-                            <span class="material-symbols-outlined">
-                                favorite
-                            </span>
-                        </button>
-                        <button class="fav_icon">
-                            <span class="material-symbols-outlined">
-                                favorite
-                            </span>
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </main>
