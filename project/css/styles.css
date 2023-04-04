@@ -85,6 +85,16 @@ dashboard container
   white-space: pre-line;
 }
 
+.dashBoard_text{
+  white-space: pre-line;
+}
+
+.delete{
+  float: right;
+  height: 20px;
+  width: 50px;
+}
+
 /*=============
 search bar
 ===============*/

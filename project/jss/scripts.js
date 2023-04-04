@@ -123,6 +123,7 @@ DOM.buttons.forEach((button, i) => {
   });
 });
 
+DOM.dashboardFavs.innerHTML = localStorage.getItem('savedSounds');
 
 // favorite
 DOM.favoriten.forEach((fav) => {
@@ -139,11 +140,11 @@ DOM.favoriten.forEach((fav) => {
     }
     savedSounds += `${sound.name}\n`;
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
-    DOM.dashboardFavs.innerHTML += `${sound.name}<br>`;
+    DOM.dashboardFavs.innerHTML += `${sound.name}\n`;
   });
 });
 
-
+// localStorage.clear();
 // extra redrict to email
 DOM.email.addEventListener('click', function() {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';
