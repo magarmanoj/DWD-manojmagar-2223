@@ -1,5 +1,6 @@
 const DOM = {
   dashboardFavs: document.querySelector('.dashBoard_text'),
+  dashboardContent: document.querySelector('.dashBoard_list'),
   buttonsBackground: document.querySelectorAll('.sound__background'),
   searchs: document.querySelector('#inpSearch'),
   buttons: document.querySelectorAll('.sound__button'),
@@ -135,6 +136,7 @@ DOM.favoriten.forEach((fav) => {
     DOM.dashboardFavs.innerHTML += savedSounds;
   });
 });
+
 
 // localStorage.clear();
 
