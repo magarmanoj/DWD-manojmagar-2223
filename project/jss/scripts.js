@@ -92,7 +92,7 @@ function playSound(sound) {
 }
 
 DOM.buttons.forEach((button, i) => {
-  button.addEventListener('click', function () {
+  button.addEventListener('click', function() {
     const sound = infos[i];
     DOM.buttons.forEach((clicked) => {
       if (clicked != this) {
@@ -115,7 +115,7 @@ DOM.buttons.forEach((button, i) => {
 
 // favorite
 DOM.favoriten.forEach((fav) => {
-  fav.addEventListener('click', function (e) {
+  fav.addEventListener('click', function(e) {
     e.preventDefault();
     const index = parseInt(e.target.parentNode.getAttribute('data-index'));
     const sound = infos[index];
@@ -139,6 +139,6 @@ DOM.favoriten.forEach((fav) => {
 // localStorage.clear();
 
 // extra redrict to email
-DOM.email.addEventListener('click', function () {
+DOM.email.addEventListener('click', function() {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';
 });
