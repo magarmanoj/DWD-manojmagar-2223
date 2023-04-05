@@ -84,6 +84,7 @@ if (DOM.searchs) {
 
 // buttons and sound 
 function playSound(sound) {
+  console.log('sound is :' + sound);
   const audio = new Audio(sound.previews[preview]);
   const duration = Math.round(sound.duration);
 
@@ -134,6 +135,7 @@ savedSounds.forEach(sound => {
   li.classList.toggle('selected');
   li.addEventListener('click', function() {
     li.classList.toggle('background');
+    playSound(sound);
   });
   DOM.list.appendChild(li);
 });
@@ -145,10 +147,11 @@ DOM.favoriten.forEach((fav) => {
     e.preventDefault();
     const index = parseInt(e.target.parentNode.getAttribute('data-index'));
     const sound = infos[index];
-
-    if (savedSounds.includes(sound.name)) {
-      console.log('Sound already in dashboard');
+    for (let i = 0; i < savedSounds.length; i++) {
+      if (savedSounds[i].id == sound.id) {
+        console.log('Sound already in dashboard');
       return;
+      }
     }
     savedSounds.push(sound);
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
@@ -157,7 +160,7 @@ DOM.favoriten.forEach((fav) => {
     li.classList.toggle('selected');
     li.addEventListener('click', function() {
       li.classList.toggle('background');
-      playSound(savedSounds.previews);
+      playSound(sound);
     });
     DOM.dashboardFavs.firstElementChild.appendChild(li);
   });
@@ -174,6 +177,7 @@ DOM.delete.addEventListener('click', function() {
   });
 });
 
+// localStorage.clear();
 // extra redrict to email
 DOM.email.addEventListener('click', function() {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';

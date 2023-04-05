@@ -82,7 +82,6 @@ dashboard container
 .dashBoard_list{
   padding: 1rem;
   margin-bottom: 0.3em;
-  white-space: pre-line;
   height: 20rem;
   overflow: auto;
 }
