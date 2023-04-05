@@ -1,5 +1,7 @@
 const DOM = {
   dashboardFavs: document.querySelector('.dashBoard_list'),
+  list: document.querySelector('#list'),
+  delete: document.querySelector('.delete'),
 
   buttonsBackground: document.querySelectorAll('.sound__background'),
   searchs: document.querySelector('#inpSearch'),
@@ -123,7 +125,17 @@ DOM.buttons.forEach((button, i) => {
   });
 });
 
-DOM.dashboardFavs.innerHTML = localStorage.getItem('savedSounds');
+const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
+savedSounds.forEach(name => {
+  const li = document.createElement('li');
+  li.textContent = name;
+  li.classList.toggle('selected');
+  li.addEventListener('click', function() {
+    li.classList.toggle('background');
+  });
+  DOM.list.appendChild(li);
+});
+DOM.dashboardFavs.appendChild(DOM.list);
 
 // favorite
 DOM.favoriten.forEach((fav) => {
@@ -140,7 +152,25 @@ DOM.favoriten.forEach((fav) => {
     }
     savedSounds.push(sound.name);
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
-    DOM.dashboardFavs.innerHTML += `${sound.name}\n`;
+    const li = document.createElement('li');
+    li.textContent = sound.name;
+    li.classList.toggle('selected');
+    li.addEventListener('click', function() {
+      li.classList.toggle('background');
+      playSound(li);
+    });
+    DOM.dashboardFavs.firstElementChild.appendChild(li);
+  });
+});
+
+DOM.delete.addEventListener('click', function() {
+  const selectedItems = DOM.dashboardFavs.querySelectorAll('.background');
+  selectedItems.forEach(item => {
+    const itemName = item.textContent;
+    const index = savedSounds.indexOf(itemName);
+    savedSounds.splice(index, 1);
+    localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
+    item.remove();
   });
 });
 
