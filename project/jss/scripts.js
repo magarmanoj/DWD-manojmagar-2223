@@ -125,10 +125,12 @@ DOM.buttons.forEach((button, i) => {
   });
 });
 
+
 const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
-savedSounds.forEach(name => {
+
+savedSounds.forEach(sound => {
   const li = document.createElement('li');
-  li.textContent = name;
+  li.textContent = sound.name;
   li.classList.toggle('selected');
   li.addEventListener('click', function() {
     li.classList.toggle('background');
@@ -144,20 +146,18 @@ DOM.favoriten.forEach((fav) => {
     const index = parseInt(e.target.parentNode.getAttribute('data-index'));
     const sound = infos[index];
 
-    // Check if sound is already saved in the dashboard
-    const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
     if (savedSounds.includes(sound.name)) {
       console.log('Sound already in dashboard');
       return;
     }
-    savedSounds.push(sound.name);
+    savedSounds.push(sound);
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
     const li = document.createElement('li');
     li.textContent = sound.name;
     li.classList.toggle('selected');
     li.addEventListener('click', function() {
       li.classList.toggle('background');
-      playSound(li);
+      playSound(savedSounds.previews);
     });
     DOM.dashboardFavs.firstElementChild.appendChild(li);
   });
@@ -174,9 +174,10 @@ DOM.delete.addEventListener('click', function() {
   });
 });
 
-
-// localStorage.clear();
 // extra redrict to email
 DOM.email.addEventListener('click', function() {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';
 });
+
+
+// try to use the code from buttons so that audio works when you click it in dashboard , playsound() moet ook nog aan gepasst worden en dashboard tonen ook
