@@ -2,6 +2,8 @@ const DOM = {
   dashboardFavs: document.querySelector('.dashBoard_list'),
   list: document.querySelector('#list'),
   delete: document.querySelector('.delete'),
+  start: document.querySelector('.start'),
+  stop: document.querySelector('.stop'),
 
   buttonsBackground: document.querySelectorAll('.sound__background'),
   searchs: document.querySelector('#inpSearch'),
@@ -18,6 +20,7 @@ let currentAudio = null;
 let infos = [];
 const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
 const preview = 'preview-hq-mp3';
+const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
 
 DOM.buttonsBackground.forEach((button) => {
   // eslint-disable-next-line no-magic-numbers
@@ -42,12 +45,20 @@ async function getStatus(search) {
   return infos;
 }
 
-function showImageTime(index) {
-  const sound = infos[index];
+function showImageTime(index, dashBoard) {
+  let sound;
+  if (dashBoard) {
+    sound = savedSounds[index];
+  }
+  else 
+  {
+    sound = infos[index];
+  }
   DOM.durations.textContent = Math.round(sound.duration);
   DOM.wave.src = sound.images.waveform_l;
-  if (infos.length > 0) {
+  if (dashBoard || infos.length > 0) {
     DOM.wave.classList.remove('hidden');
+    DOM.durations.classList.remove('hidden');
   } else {
     DOM.wave.classList.add('hidden');
   }
@@ -122,20 +133,32 @@ DOM.buttons.forEach((button, i) => {
     } else {
       playSound(sound);
     }
-    showImageTime(i);
+
+    // false want dit is geen dashboard.
+    showImageTime(i, false);
   });
 });
 
 
-const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
-
-savedSounds.forEach(sound => {
+savedSounds.forEach((sound, index) => {
   const li = document.createElement('li');
   li.textContent = sound.name;
   li.classList.toggle('selected');
   li.addEventListener('click', function() {
     li.classList.toggle('background');
-    playSound(sound);
+    DOM.start.addEventListener('click', function() {
+      playSound(sound);
+    });
+    DOM.stop.addEventListener('click', function() {
+      if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
+        currentAudio.pause();
+        currentAudio = null;
+        li.classList.remove('background');
+      }
+    });
+
+    // true want dit is gesaved in dashboard
+    showImageTime(index, true);
   });
   DOM.list.appendChild(li);
 });
@@ -160,7 +183,17 @@ DOM.favoriten.forEach((fav) => {
     li.classList.toggle('selected');
     li.addEventListener('click', function() {
       li.classList.toggle('background');
-      playSound(sound);
+      DOM.start.addEventListener('click', function() {
+        playSound(sound);
+      });
+      DOM.stop.addEventListener('click', function() {
+        if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
+          currentAudio.pause();
+          currentAudio = null;
+          li.classList.remove('background');
+        }
+      });
+      showImageTime(index, true);
     });
     DOM.dashboardFavs.firstElementChild.appendChild(li);
   });
@@ -174,6 +207,12 @@ DOM.delete.addEventListener('click', function() {
     savedSounds.splice(index, 1);
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
     item.remove();
+    if (currentAudio != null) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    DOM.wave.classList.add('hidden');
+    DOM.durations.classList.add('hidden');
   });
 });
 
@@ -182,6 +221,3 @@ DOM.delete.addEventListener('click', function() {
 DOM.email.addEventListener('click', function() {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';
 });
-
-
-// try to use the code from buttons so that audio works when you click it in dashboard , playsound() moet ook nog aan gepasst worden en dashboard tonen ook

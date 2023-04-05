@@ -82,7 +82,7 @@ dashboard container
 .dashBoard_list{
   padding: 1rem;
   margin-bottom: 0.3em;
-  height: 20rem;
+  height: 19rem;
   overflow: auto;
 }
 
@@ -95,11 +95,12 @@ dashboard container
   background-color: grey;
 }
 
-.delete{
+.delete, .start, .stop{
   float: right;
-  height: 20px;
-  width: 55px;
+  height: 2em;
+  width: 5em;
 }
+
 
 /*=============
 search bar
@@ -190,6 +191,9 @@ sound buttons
   margin-bottom: 10px;
 }
 .sound-waveform.hidden {
+  display: none; 
+}
+.sound-time.hidden {
   display: none; 
 }
 
