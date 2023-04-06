@@ -1,6 +1,6 @@
 const DOM = {
   dashboardFavs: document.querySelector('.dashBoard_list'),
-  list: document.querySelector('#list'),
+  list: document.querySelector('.list'),
   delete: document.querySelector('.delete'),
   start: document.querySelector('.start'),
   stop: document.querySelector('.stop'),
@@ -104,7 +104,7 @@ function playSound(sound) {
     currentAudio.pause();
   }
   currentAudio = audio;
-  audio.addEventListener('timeupdate', function () {
+  audio.addEventListener('timeupdate', function() {
     const minutes = Math.floor(audio.currentTime / 60);
     const seconds = Math.floor(audio.currentTime % 60);
     const durationMinutes = Math.floor(duration / 60);
@@ -139,28 +139,11 @@ DOM.buttons.forEach((button, i) => {
   });
 });
 
-
+// 
 savedSounds.forEach((sound, index) => {
-  const li = document.createElement('li');
-  li.textContent = sound.name;
-  li.classList.toggle('selected');
-  li.addEventListener('click', function() {
-    li.classList.toggle('background');
-    DOM.start.addEventListener('click', function() {
-      playSound(sound);
-    });
-    DOM.stop.addEventListener('click', function() {
-      if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
-        currentAudio.pause();
-        currentAudio = null;
-        li.classList.remove('background');
-      }
-    });
-
-    // true want dit is gesaved in dashboard
-    showImageTime(index, true);
-  });
-  DOM.list.appendChild(li);
+  createLi(sound, index, DOM.list);
+  startButton(sound);
+  stopButton(sound);
 });
 DOM.dashboardFavs.appendChild(DOM.list);
 
@@ -178,24 +161,9 @@ DOM.favoriten.forEach((fav) => {
     }
     savedSounds.push(sound);
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
-    const li = document.createElement('li');
-    li.textContent = sound.name;
-    li.classList.toggle('selected');
-    li.addEventListener('click', function() {
-      li.classList.toggle('background');
-      DOM.start.addEventListener('click', function() {
-        playSound(sound);
-      });
-      DOM.stop.addEventListener('click', function() {
-        if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
-          currentAudio.pause();
-          currentAudio = null;
-          li.classList.remove('background');
-        }
-      });
-      showImageTime(index, true);
-    });
-    DOM.dashboardFavs.firstElementChild.appendChild(li);
+    createLi(sound, index, DOM.dashboardFavs.firstElementChild);
+    startButton(sound);
+    stopButton(sound);
   });
 });
 
@@ -215,6 +183,39 @@ DOM.delete.addEventListener('click', function() {
     DOM.durations.classList.add('hidden');
   });
 });
+
+function createLi(sound, index, appendList) {
+  const li = document.createElement('li');
+  li.textContent = sound.name;
+  li.classList.toggle('selected');
+  li.addEventListener('click', function() {
+    li.classList.toggle('background');
+    showImageTime(index, true);
+  });
+  appendList.appendChild(li);
+}
+
+function startButton(sound) {
+  DOM.start.addEventListener('click', function() {
+    if (currentAudio !== null && currentAudio.src === sound.previews[preview]) {
+      return;
+    }
+    playSound(sound);
+  });
+}
+
+
+function stopButton(sound) {
+  DOM.stop.addEventListener('click', function() {
+    if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
+      currentAudio.pause();
+      currentAudio = null;
+      DOM.list.querySelectorAll('.selected').forEach(function(li) {
+        li.classList.remove('background');
+      });
+    }
+  });
+}
 
 // localStorage.clear();
 // extra redrict to email
