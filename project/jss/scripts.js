@@ -113,6 +113,9 @@ function playSound(sound) {
 
     DOM.durations.textContent = `Time: ${minutes}:${seconds}s / ${durationMinutes}:${durationSeconds} s`;
   });
+  audio.addEventListener('ended', function() {
+    currentAudio = null;
+  });
   currentAudio.play();
 }
 
@@ -144,7 +147,6 @@ DOM.buttons.forEach((button, i) => {
 
 savedSounds.forEach((sound, index) => {
   createLi(sound, index, DOM.list);
-  setupButton(sound);
 });
 DOM.dashboardFavs.appendChild(DOM.list);
 
@@ -164,10 +166,45 @@ DOM.favoriten.forEach((fav) => {
     savedSounds.push(sound);
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
     createLi(sound, index, DOM.dashboardFavs.firstElementChild);
-    setupButton(sound);
     showImageTime(index, true);
   });
 });
+
+
+function createLi(sound, index, appendList) {
+  const li = document.createElement('li');
+  li.textContent = sound.name;
+  li.classList.toggle('selected');
+  li.addEventListener('click', function() {
+    li.classList.toggle('background');
+    showImageTime(index, true);
+    togglePlayButton();
+    startButton(sound);
+    stopButton(sound);
+  });
+  appendList.appendChild(li);
+}
+
+
+function startButton(sound) {
+  DOM.start.addEventListener('click', function() {
+    if (currentAudio == null || currentAudio.src != sound.previews[preview]) {
+      playSound(sound);
+    }
+  });
+}
+
+function stopButton(sound) {
+  DOM.stop.addEventListener('click', function() {
+    if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
+      currentAudio.pause();
+      currentAudio = null;
+      DOM.list.querySelectorAll('.selected').forEach(function(li) {
+        li.classList.remove('background');
+      });
+    }
+  });
+}
 
 DOM.delete.addEventListener('click', function() {
   const selectedItems = DOM.dashboardFavs.querySelectorAll('.background');
@@ -186,42 +223,11 @@ DOM.delete.addEventListener('click', function() {
   });
 });
 
-function createLi(sound, index, appendList) {
-  const li = document.createElement('li');
-  li.textContent = sound.name;
-  li.classList.toggle('selected');
-  li.addEventListener('click', function() {
-    li.classList.toggle('background');
-    showImageTime(index, true);
-    togglePlayButton();
-  });
-  appendList.appendChild(li);
-}
-
-function setupButton(sound) {
-  DOM.start.addEventListener('click', function() {
-    if (currentAudio == null || currentAudio.src != sound.previews[preview]) {
-      playSound(sound);
-    }
-  });
-  
-  DOM.stop.addEventListener('click', function() {
-    if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
-      currentAudio.pause();
-      currentAudio = null;
-      DOM.list.querySelectorAll('.selected').forEach(function(li) {
-        li.classList.remove('background');
-      });
-    }
-  });
-}
-
-
 DOM.clearAll.addEventListener('click', function() {
   DOM.list.textContent = '';
 
   // want als je gwn localStorage.clear(); en er is geen items meer wordt het localStorage null wat later error geeft
-  if (localStorage.getItem('savedSounds') !== null) {
+  if (localStorage.getItem('savedSounds') != null) {
     localStorage.clear();
   } else {
     localStorage.setItem('savedSounds', JSON.stringify([]));
