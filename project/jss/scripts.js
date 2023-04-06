@@ -1,7 +1,8 @@
 const DOM = {
   dashboardFavs: document.querySelector('.dashBoard_list'),
   list: document.querySelector('.list'),
-  selectedItems: document.querySelectorAll('.selected'),
+  lblMsgList: document.querySelector('#lblMsgList'),
+
   delete: document.querySelector('.delete'),
   start: document.querySelector('.start'),
   stop: document.querySelector('.stop'),
@@ -47,30 +48,11 @@ async function getStatus(search) {
   return infos;
 }
 
-function showImageTime(index, dashBoard) {
-  let sound;
-  if (dashBoard) {
-    sound = savedSounds[index];
-  }
-  else 
-  {
-    sound = infos[index];
-  }
-  DOM.durations.textContent = Math.round(sound.duration);
-  DOM.wave.src = sound.images.waveform_l;
-  if (dashBoard || infos.length > 0) {
-    DOM.wave.classList.remove('hidden');
-    DOM.durations.classList.remove('hidden');
-  } else {
-    DOM.wave.classList.add('hidden');
-  }
-}
-
 // search bar
 if (DOM.searchs) {
   DOM.searchs.addEventListener('input', () => {
     const searchTerm = DOM.searchs.value;
-    if (searchTerm === '') {
+    if (searchTerm == '') {
       DOM.msg.textContent = 'Geef een zoekterm in';
     } else {
       DOM.msg.textContent = '';
@@ -81,7 +63,7 @@ if (DOM.searchs) {
     if (event.key == 'Enter') {
       event.preventDefault();
       const searchTerm = DOM.searchs.value;
-      if (searchTerm === '') {
+      if (searchTerm == '') {
         DOM.msg.textContent = 'Geef een zoekterm in';
       }
       await getStatus(searchTerm);
@@ -93,6 +75,24 @@ if (DOM.searchs) {
       }
     }
   });
+}
+
+function showImageTime(index, dashBoard) {
+  let sound;
+  if (dashBoard) {
+    sound = savedSounds[index];
+  }
+  else 
+  {
+    sound = infos[index];
+  }
+  DOM.wave.src = sound.images.waveform_l;
+  if (dashBoard || infos.length > 0) {
+    DOM.wave.classList.remove('hidden');
+    DOM.durations.classList.remove('hidden');
+  } else {
+    DOM.wave.classList.add('hidden');
+  }
 }
 
 // buttons and sound 
@@ -111,10 +111,11 @@ function playSound(sound) {
     const durationMinutes = Math.floor(duration / 60);
     const durationSeconds = (duration % 60);
 
-    DOM.durations.textContent = `${minutes}:${seconds}s / ${durationMinutes}:${durationSeconds} s`;
+    DOM.durations.textContent = `Time: ${minutes}:${seconds}s / ${durationMinutes}:${durationSeconds} s`;
   });
-  audio.play();
+  currentAudio.play();
 }
+
 
 DOM.buttons.forEach((button, i) => {
   button.addEventListener('click', function() {
@@ -140,10 +141,10 @@ DOM.buttons.forEach((button, i) => {
   });
 });
 
+
 savedSounds.forEach((sound, index) => {
   createLi(sound, index, DOM.list);
-  startButton(sound);
-  stopButton(sound);
+  setupButton(sound);
 });
 DOM.dashboardFavs.appendChild(DOM.list);
 
@@ -153,9 +154,7 @@ DOM.favoriten.forEach((fav) => {
     e.preventDefault();
     const index = parseInt(e.target.parentNode.getAttribute('data-index'));
     const sound = infos[index];
-
-    // Check if sound is already saved in the dashboard
-    const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
+    
     for (let i = 0; i < savedSounds.length; i++) {
       if (savedSounds[i].id == sound.id) {
         console.log('Sound already in dashboard');
@@ -165,8 +164,7 @@ DOM.favoriten.forEach((fav) => {
     savedSounds.push(sound);
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
     createLi(sound, index, DOM.dashboardFavs.firstElementChild);
-    startButton(sound);
-    stopButton(sound);
+    setupButton(sound);
     showImageTime(index, true);
   });
 });
@@ -195,18 +193,18 @@ function createLi(sound, index, appendList) {
   li.addEventListener('click', function() {
     li.classList.toggle('background');
     showImageTime(index, true);
-    // togglePlayButton();
+    togglePlayButton();
   });
   appendList.appendChild(li);
 }
 
-function startButton(sound) {
+function setupButton(sound) {
   DOM.start.addEventListener('click', function() {
-    playSound(sound);
+    if (currentAudio == null || currentAudio.src != sound.previews[preview]) {
+      playSound(sound);
+    }
   });
-}
-
-function stopButton(sound) {
+  
   DOM.stop.addEventListener('click', function() {
     if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
       currentAudio.pause();
@@ -218,17 +216,28 @@ function stopButton(sound) {
   });
 }
 
+
 DOM.clearAll.addEventListener('click', function() {
   DOM.list.textContent = '';
+
+  // want als je gwn localStorage.clear(); en er is geen items meer wordt het localStorage null wat later error geeft
+  if (localStorage.getItem('savedSounds') !== null) {
+    localStorage.clear();
+  } else {
+    localStorage.setItem('savedSounds', JSON.stringify([]));
+  }
 });
 
-// function togglePlayButton() {
-//   if (DOM.selectedItems.length == 1) {
-//     DOM.start.disabled = false;
-//   } else {
-//     DOM.start.disabled = true;
-//   }
-// }
+function togglePlayButton() {
+  const selectedItems = DOM.list.querySelectorAll('.background');
+  if (selectedItems.length == 1) {
+    DOM.start.disabled = false;
+    DOM.lblMsgList.textContent = '';
+  } else {
+    DOM.start.disabled = true;
+    DOM.lblMsgList.textContent = 'More then 1 items is slected or none';
+  }
+}
 
 
 // extra redrict to email
