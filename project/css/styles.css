@@ -95,7 +95,7 @@ dashboard container
   background-color: grey;
 }
 
-.delete, .start, .stop{
+.delete, .start, .stop, .clearAll{
   float: right;
   height: 2em;
   width: 5em;
