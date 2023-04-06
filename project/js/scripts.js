@@ -23,7 +23,7 @@ let currentAudio = null;
 let infos = [];
 const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
 const preview = 'preview-hq-mp3';
-let savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
+const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
 
 DOM.buttonsBackground.forEach((button) => {
   // eslint-disable-next-line no-magic-numbers
@@ -178,7 +178,7 @@ DOM.favoriten.forEach((fav) => {
       }
     }
     savedSounds.push(sound);
-    localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
+    localStorage.setItem('savedSounds', JSON.stringify(savedSounds) || []);
     createLi(sound, index, DOM.dashboardFavs.firstElementChild);
     showImageTime(index, true);
   });
@@ -239,7 +239,6 @@ DOM.delete.addEventListener('click', function() {
 
 DOM.clearAll.addEventListener('click', function() {
   DOM.list.textContent = '';
-  savedSounds = [];
   localStorage.removeItem('savedSounds');
 });
 
