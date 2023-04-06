@@ -1,6 +1,7 @@
 const DOM = {
   dashboardFavs: document.querySelector('.dashBoard_list'),
   list: document.querySelector('.list'),
+  selectedItems: document.querySelectorAll('.selected'),
   delete: document.querySelector('.delete'),
   start: document.querySelector('.start'),
   stop: document.querySelector('.stop'),
@@ -166,7 +167,7 @@ DOM.favoriten.forEach((fav) => {
     createLi(sound, index, DOM.dashboardFavs.firstElementChild);
     startButton(sound);
     stopButton(sound);
-    showImageTime(index, false);
+    showImageTime(index, true);
   });
 });
 
@@ -194,6 +195,7 @@ function createLi(sound, index, appendList) {
   li.addEventListener('click', function() {
     li.classList.toggle('background');
     showImageTime(index, true);
+    // togglePlayButton();
   });
   appendList.appendChild(li);
 }
@@ -222,14 +224,14 @@ DOM.clearAll.addEventListener('click', function() {
 });
 
 // function togglePlayButton() {
-//   if (selectedItems.length == 1) {
+//   if (DOM.selectedItems.length == 1) {
 //     DOM.start.disabled = false;
 //   } else {
 //     DOM.start.disabled = true;
 //   }
 // }
 
-// localStorage.clear();
+
 // extra redrict to email
 DOM.email.addEventListener('click', function() {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';
