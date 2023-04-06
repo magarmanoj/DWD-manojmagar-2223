@@ -135,7 +135,7 @@ DOM.buttons.forEach((button, i) => {
     }
 
     // false want dit is geen dashboard.
-    showImageTime(i);
+    showImageTime(i, false);
   });
 });
 
@@ -145,7 +145,7 @@ function createLi(sound, index, appendList) {
   li.classList.toggle('selected');
   li.addEventListener('click', function() {
     li.classList.toggle('background');
-    showImageTime(index);
+    showImageTime(index, true);
     togglePlayButton();
     startButton(sound);
     stopButton(sound);
@@ -169,26 +169,37 @@ DOM.favoriten.forEach((fav) => {
 
     // Check if sound is already saved in the dashboard
     const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
+    console.log(savedSounds);
     for (let i = 0; i < savedSounds.length; i++) {
-      if (savedSounds[i].id == sound.id) {
+      const savedSound = JSON.parse(savedSounds[i]);
+      if (savedSound.id == sound.id) {
         console.log('Sound already in dashboard');
-      return;
+        return;
       }
     }
     savedSounds.push(JSON.stringify(sound));
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
     createLi(sound, index, DOM.dashboardFavs.firstElementChild);
-    showImageTime(index);
+    showImageTime(index, false);
   });
 });
 
-function showImageTime(index) {
-  const savedSoundsArray = JSON.parse(savedSounds);
-  const sound = savedSoundsArray[index];
-  console.log(sound);
-  DOM.durations.textContent = Math.round(sound.duration);
-  DOM.wave.src = sound.images.waveform_l;
-  if (infos.length > 0) {
+
+function showImageTime(index, dashBoard) {
+  if (dashBoard) {
+    const sound = savedSounds[index];
+    const savedSoundArray = JSON.parse(sound);
+    DOM.durations.textContent = Math.round(savedSoundArray.duration);
+    DOM.wave.src = savedSoundArray.images.waveform_l;
+  }
+  else 
+  {
+    const sound = infos[index];
+    DOM.durations.textContent = Math.round(sound.duration);
+    DOM.wave.src = sound.images.waveform_l;
+  }
+  
+  if (dashBoard || infos.length > 0) {
     DOM.wave.classList.remove('hidden');
     DOM.durations.classList.remove('hidden');
   } else {
@@ -236,7 +247,7 @@ DOM.delete.addEventListener('click', function() {
 
 DOM.clearAll.addEventListener('click', function() {
   DOM.list.textContent = '';
-  
+
   // want als je gwn localStorage.clear(); en er is geen items meer wordt het localStorage null wat later error geeft
   if (localStorage.getItem('savedSounds') != null) {
     localStorage.clear();
