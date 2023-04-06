@@ -219,8 +219,7 @@ function stopButton(sound) {
 }
 
 DOM.clearAll.addEventListener('click', function() {
-  DOM.list.innerHTML = '';
-  localStorage.clear();
+  DOM.list.textContent = '';
 });
 
 // function togglePlayButton() {
