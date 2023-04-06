@@ -23,7 +23,7 @@ let currentAudio = null;
 let infos = [];
 const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
 const preview = 'preview-hq-mp3';
-const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
+let savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
 
 DOM.buttonsBackground.forEach((button) => {
   // eslint-disable-next-line no-magic-numbers
@@ -103,6 +103,7 @@ function playSound(sound) {
   // al sound aan het spelen ==>  pasue ELSE currentAudio is audio (new sound)
   if (currentAudio != null) {
     currentAudio.pause();
+    currentAudio.currentTime = 0;
   }
   currentAudio = audio;
   audio.addEventListener('timeupdate', function() {
@@ -116,7 +117,20 @@ function playSound(sound) {
   audio.addEventListener('ended', function() {
     currentAudio = null;
   });
-  currentAudio.play();
+  const playPromise = currentAudio.play();
+  if (playPromise !== undefined) {
+    playPromise
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          // Als de fout een "AbortError" is, probeer dan opnieuw het geluid af te spelen
+          return currentAudio.play();
+        }
+        console.error('Error playing audio:', error);
+      })
+      .catch((error) => {
+        console.error('Error playing audio after retry:', error);
+      });
+  }
 }
 
 
@@ -225,13 +239,7 @@ DOM.delete.addEventListener('click', function() {
 
 DOM.clearAll.addEventListener('click', function() {
   DOM.list.textContent = '';
-
-  // want als je gwn localStorage.clear(); en er is geen items meer wordt het localStorage null wat later error geeft
-  if (localStorage.getItem('savedSounds') != null) {
-    localStorage.clear();
-  } else {
-    localStorage.setItem('savedSounds', JSON.stringify([]));
-  }
+  localStorage.removeItem('savedSounds');
 });
 
 function togglePlayButton() {
