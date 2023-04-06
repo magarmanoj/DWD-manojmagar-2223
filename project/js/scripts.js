@@ -23,7 +23,6 @@ let currentAudio = null;
 let infos = [];
 const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
 const preview = 'preview-hq-mp3';
-const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
 
 DOM.buttonsBackground.forEach((button) => {
   // eslint-disable-next-line no-magic-numbers
@@ -77,23 +76,18 @@ if (DOM.searchs) {
   });
 }
 
-function showImageTime(index, dashBoard) {
-  let sound;
-  if (dashBoard) {
-    sound = savedSounds[index];
-  }
-  else 
-  {
-    sound = infos[index];
-  }
+function showImageTime(index) {
+  const sound = infos[index];
+  DOM.durations.textContent = Math.round(sound.duration);
   DOM.wave.src = sound.images.waveform_l;
-  if (dashBoard || infos.length > 0) {
+  if (infos.length > 0) {
     DOM.wave.classList.remove('hidden');
     DOM.durations.classList.remove('hidden');
   } else {
     DOM.wave.classList.add('hidden');
   }
 }
+
 
 // buttons and sound 
 function playSound(sound) {
@@ -154,36 +148,9 @@ DOM.buttons.forEach((button, i) => {
     }
 
     // false want dit is geen dashboard.
-    showImageTime(i, false);
+    showImageTime(i);
   });
 });
-
-
-savedSounds.forEach((sound, index) => {
-  createLi(sound, index, DOM.list);
-});
-DOM.dashboardFavs.appendChild(DOM.list);
-
-// favorite
-DOM.favoriten.forEach((fav) => {
-  fav.addEventListener('click', function(e) {
-    e.preventDefault();
-    const index = parseInt(e.target.parentNode.getAttribute('data-index'));
-    const sound = infos[index];
-    
-    for (let i = 0; i < savedSounds.length; i++) {
-      if (savedSounds[i].id == sound.id) {
-        console.log('Sound already in dashboard');
-      return;
-      }
-    }
-    savedSounds.push(sound);
-    localStorage.setItem('savedSounds', JSON.stringify(savedSounds) || []);
-    createLi(sound, index, DOM.dashboardFavs.firstElementChild);
-    showImageTime(index, true);
-  });
-});
-
 
 function createLi(sound, index, appendList) {
   const li = document.createElement('li');
@@ -191,13 +158,44 @@ function createLi(sound, index, appendList) {
   li.classList.toggle('selected');
   li.addEventListener('click', function() {
     li.classList.toggle('background');
-    showImageTime(index, true);
+    showImageTime(index);
     togglePlayButton();
     startButton(sound);
     stopButton(sound);
   });
   appendList.appendChild(li);
 }
+
+const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) ?? [];
+console.log(savedSounds);
+savedSounds.forEach((sound, index) => {
+  createLi(sound, index, DOM.list);
+});
+DOM.dashboardFavs.appendChild(DOM.list);
+
+console.log(DOM.dashboardFavs);
+
+// favorite
+DOM.favoriten.forEach((fav) => {
+  fav.addEventListener('click', function(e) {
+    e.preventDefault();
+    const index = parseInt(e.target.parentNode.getAttribute('data-index'));
+    const sound = infos[index];
+
+    // Check if sound is already saved in the dashboard
+    const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
+    for (let i = 0; i < savedSounds.length; i++) {
+      if (savedSounds[i].id == sound.id) {
+        console.log('Sound already in dashboard');
+      return;
+      }
+    }
+    savedSounds.push(sound.previews);
+    localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
+    createLi(sound, index, DOM.dashboardFavs.firstElementChild);
+    showImageTime(index);
+  });
+});
 
 
 function startButton(sound) {
