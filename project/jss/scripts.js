@@ -1,6 +1,6 @@
 const DOM = {
   dashboardFavs: document.querySelector('.dashBoard_list'),
-  list: document.querySelector('.list'),
+  list: document.querySelector('#list'),
   delete: document.querySelector('.delete'),
   start: document.querySelector('.start'),
   stop: document.querySelector('.stop'),
@@ -104,7 +104,7 @@ function playSound(sound) {
     currentAudio.pause();
   }
   currentAudio = audio;
-  audio.addEventListener('timeupdate', function() {
+  audio.addEventListener('timeupdate', function () {
     const minutes = Math.floor(audio.currentTime / 60);
     const seconds = Math.floor(audio.currentTime % 60);
     const durationMinutes = Math.floor(duration / 60);
@@ -140,12 +140,25 @@ DOM.buttons.forEach((button, i) => {
 });
 
 
-savedSounds.forEach(sound => {
+savedSounds.forEach((sound, index) => {
   const li = document.createElement('li');
   li.textContent = sound.name;
   li.classList.toggle('selected');
   li.addEventListener('click', function() {
     li.classList.toggle('background');
+    DOM.start.addEventListener('click', function() {
+      playSound(sound);
+    });
+    DOM.stop.addEventListener('click', function() {
+      if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
+        currentAudio.pause();
+        currentAudio = null;
+        li.classList.remove('background');
+      }
+    });
+
+    // true want dit is gesaved in dashboard
+    showImageTime(index, true);
   });
   DOM.list.appendChild(li);
 });
@@ -163,13 +176,23 @@ DOM.favoriten.forEach((fav) => {
       return;
     }
     savedSounds.push(sound);
-    localStorage.setItem('savedSounds', JSON.stringify(savedSounds) || []);
+    localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
     const li = document.createElement('li');
     li.textContent = sound.name;
     li.classList.toggle('selected');
     li.addEventListener('click', function() {
       li.classList.toggle('background');
-      playSound(savedSounds.previews);
+      DOM.start.addEventListener('click', function() {
+        playSound(sound);
+      });
+      DOM.stop.addEventListener('click', function() {
+        if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
+          currentAudio.pause();
+          currentAudio = null;
+          li.classList.remove('background');
+        }
+      });
+      showImageTime(index, true);
     });
     DOM.dashboardFavs.firstElementChild.appendChild(li);
   });
@@ -192,6 +215,7 @@ DOM.delete.addEventListener('click', function() {
   });
 });
 
+// localStorage.clear();
 // extra redrict to email
 DOM.email.addEventListener('click', function() {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';
