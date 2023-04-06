@@ -239,6 +239,7 @@ DOM.delete.addEventListener('click', function() {
 
 DOM.clearAll.addEventListener('click', function() {
   DOM.list.textContent = '';
+  savedSounds = [];
   localStorage.removeItem('savedSounds');
 });
 
