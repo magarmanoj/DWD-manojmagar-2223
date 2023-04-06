@@ -34,11 +34,9 @@ DOM.buttonsBackground.forEach((button) => {
 async function getStatus(search) {
   const url = `https://freesound.org/apiv2/search/text/?query=${search}&token=${apiKey}&fields=id,name,previews,duration,images`;
   const resp = await fetch(url);
-
   if (!resp.ok) return console.log('mislukt');
   const data = await resp.json();
   const eersteVierGeluiden = data.results.slice(0, 4);
-
   infos = [];
   for (let i = 0; i < eersteVierGeluiden.length; i++) {
     infos.push(eersteVierGeluiden[i]);
@@ -50,20 +48,15 @@ async function getStatus(search) {
 if (DOM.searchs) {
   DOM.searchs.addEventListener('input', () => {
     const searchTerm = DOM.searchs.value;
-    if (searchTerm == '') {
-      DOM.msg.textContent = 'Geef een zoekterm in';
-    } else {
-      DOM.msg.textContent = '';
-    }
+    if (searchTerm == '') return DOM.msg.textContent = 'Geef een zoekterm in';
+    DOM.msg.textContent = '';
   });
 
   DOM.searchs.addEventListener('keyup', async(event) => {
     if (event.key == 'Enter') {
       event.preventDefault();
       const searchTerm = DOM.searchs.value;
-      if (searchTerm == '') {
-        DOM.msg.textContent = 'Geef een zoekterm in';
-      }
+      if (searchTerm == '') return DOM.msg.textContent = 'Geef een zoekterm in';
       await getStatus(searchTerm);
       DOM.searchs.value = '';
       DOM.buttons.forEach(button => button.classList.remove('active'));
@@ -74,7 +67,6 @@ if (DOM.searchs) {
     }
   });
 }
-
 
 // buttons and sound 
 function playSound(sound) {
@@ -98,11 +90,13 @@ function playSound(sound) {
   audio.addEventListener('ended', function() {
     currentAudio = null;
   });
+
+  // https://developer.chrome.com/blog/play-request-was-interrupted/
   const playPromise = currentAudio.play();
-  if (playPromise !== undefined) {
+  if (playPromise != undefined) {
     playPromise
       .catch((error) => {
-        if (error.name === 'AbortError') {
+        if (error.name == 'AbortError') {
           // Als de fout een "AbortError" is, probeer dan opnieuw het geluid af te spelen
           return currentAudio.play();
         }
@@ -123,7 +117,6 @@ DOM.buttons.forEach((button, i) => {
         clicked.classList.remove('active');
       }
     });
-
     this.classList.toggle('active');
 
     // checks als er sound aan het spelen is en of het zelfde sound is dan vorige ==> pause ELSE playSound
@@ -184,7 +177,6 @@ DOM.favoriten.forEach((fav) => {
   });
 });
 
-
 function showImageTime(index, dashBoard) {
   if (dashBoard) {
     const sound = savedSounds[index];
@@ -207,12 +199,9 @@ function showImageTime(index, dashBoard) {
   }
 }
 
-
 function startButton(sound) {
   DOM.start.addEventListener('click', function() {
-    if (currentAudio == null || currentAudio.src != sound.previews[preview]) {
-      playSound(sound);
-    }
+    if (currentAudio == null || currentAudio.src != sound.previews[preview]) return playSound(sound);
   });
 }
 
@@ -267,7 +256,6 @@ function togglePlayButton() {
     DOM.lblMsgList.textContent = 'More then 1 items is slected or none';
   }
 }
-
 
 // extra redrict to email
 DOM.email.addEventListener('click', function() {
