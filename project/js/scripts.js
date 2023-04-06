@@ -42,7 +42,6 @@ async function getStatus(search) {
   infos = [];
   for (let i = 0; i < eersteVierGeluiden.length; i++) {
     infos.push(eersteVierGeluiden[i]);
-    console.log(infos);
   }
   return infos;
 }
@@ -74,18 +73,6 @@ if (DOM.searchs) {
       }
     }
   });
-}
-
-function showImageTime(index) {
-  const sound = infos[index];
-  DOM.durations.textContent = Math.round(sound.duration);
-  DOM.wave.src = sound.images.waveform_l;
-  if (infos.length > 0) {
-    DOM.wave.classList.remove('hidden');
-    DOM.durations.classList.remove('hidden');
-  } else {
-    DOM.wave.classList.add('hidden');
-  }
 }
 
 
@@ -166,14 +153,12 @@ function createLi(sound, index, appendList) {
   appendList.appendChild(li);
 }
 
-const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) ?? [];
-console.log(savedSounds);
-savedSounds.forEach((sound, index) => {
+const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
+savedSounds.forEach((savedSound, index) => {
+  const sound = JSON.parse(savedSound);
   createLi(sound, index, DOM.list);
 });
 DOM.dashboardFavs.appendChild(DOM.list);
-
-console.log(DOM.dashboardFavs);
 
 // favorite
 DOM.favoriten.forEach((fav) => {
@@ -190,12 +175,26 @@ DOM.favoriten.forEach((fav) => {
       return;
       }
     }
-    savedSounds.push(sound.previews);
+    savedSounds.push(JSON.stringify(sound));
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
     createLi(sound, index, DOM.dashboardFavs.firstElementChild);
     showImageTime(index);
   });
 });
+
+function showImageTime(index) {
+  const savedSoundsArray = JSON.parse(savedSounds);
+  const sound = savedSoundsArray[index];
+  console.log(sound);
+  DOM.durations.textContent = Math.round(sound.duration);
+  DOM.wave.src = sound.images.waveform_l;
+  if (infos.length > 0) {
+    DOM.wave.classList.remove('hidden');
+    DOM.durations.classList.remove('hidden');
+  } else {
+    DOM.wave.classList.add('hidden');
+  }
+}
 
 
 function startButton(sound) {
@@ -237,7 +236,14 @@ DOM.delete.addEventListener('click', function() {
 
 DOM.clearAll.addEventListener('click', function() {
   DOM.list.textContent = '';
-  localStorage.removeItem('savedSounds');
+  
+  // want als je gwn localStorage.clear(); en er is geen items meer wordt het localStorage null wat later error geeft
+  if (localStorage.getItem('savedSounds') != null) {
+    localStorage.clear();
+    localStorage.setItem('savedSounds', JSON.stringify([]));
+  } else {
+    localStorage.setItem('savedSounds', JSON.stringify([]));
+  }
 });
 
 function togglePlayButton() {
