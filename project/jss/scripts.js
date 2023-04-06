@@ -21,6 +21,7 @@ let infos = [];
 const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
 const preview = 'preview-hq-mp3';
 const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
+console.log(savedSounds);
 
 DOM.buttonsBackground.forEach((button) => {
   // eslint-disable-next-line no-magic-numbers
@@ -95,7 +96,6 @@ if (DOM.searchs) {
 
 // buttons and sound 
 function playSound(sound) {
-  console.log('sound is :' + sound);
   const audio = new Audio(sound.previews[preview]);
   const duration = Math.round(sound.duration);
 
@@ -139,11 +139,15 @@ DOM.buttons.forEach((button, i) => {
   });
 });
 
-// 
-savedSounds.forEach((sound, index) => {
-  createLi(sound, index, DOM.list);
-  startButton(sound);
-  stopButton(sound);
+
+savedSounds.forEach(sound => {
+  const li = document.createElement('li');
+  li.textContent = sound.name;
+  li.classList.toggle('selected');
+  li.addEventListener('click', function() {
+    li.classList.toggle('background');
+  });
+  DOM.list.appendChild(li);
 });
 DOM.dashboardFavs.appendChild(DOM.list);
 
@@ -153,17 +157,21 @@ DOM.favoriten.forEach((fav) => {
     e.preventDefault();
     const index = parseInt(e.target.parentNode.getAttribute('data-index'));
     const sound = infos[index];
-    for (let i = 0; i < savedSounds.length; i++) {
-      if (savedSounds[i].id == sound.id) {
-        console.log('Sound already in dashboard');
+
+    if (savedSounds.includes(sound.name)) {
+      console.log('Sound already in dashboard');
       return;
-      }
     }
     savedSounds.push(sound);
-    localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
-    createLi(sound, index, DOM.dashboardFavs.firstElementChild);
-    startButton(sound);
-    stopButton(sound);
+    localStorage.setItem('savedSounds', JSON.stringify(savedSounds) || []);
+    const li = document.createElement('li');
+    li.textContent = sound.name;
+    li.classList.toggle('selected');
+    li.addEventListener('click', function() {
+      li.classList.toggle('background');
+      playSound(savedSounds.previews);
+    });
+    DOM.dashboardFavs.firstElementChild.appendChild(li);
   });
 });
 
@@ -184,40 +192,6 @@ DOM.delete.addEventListener('click', function() {
   });
 });
 
-function createLi(sound, index, appendList) {
-  const li = document.createElement('li');
-  li.textContent = sound.name;
-  li.classList.toggle('selected');
-  li.addEventListener('click', function() {
-    li.classList.toggle('background');
-    showImageTime(index, true);
-  });
-  appendList.appendChild(li);
-}
-
-function startButton(sound) {
-  DOM.start.addEventListener('click', function() {
-    if (currentAudio !== null && currentAudio.src === sound.previews[preview]) {
-      return;
-    }
-    playSound(sound);
-  });
-}
-
-
-function stopButton(sound) {
-  DOM.stop.addEventListener('click', function() {
-    if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
-      currentAudio.pause();
-      currentAudio = null;
-      DOM.list.querySelectorAll('.selected').forEach(function(li) {
-        li.classList.remove('background');
-      });
-    }
-  });
-}
-
-// localStorage.clear();
 // extra redrict to email
 DOM.email.addEventListener('click', function() {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';
