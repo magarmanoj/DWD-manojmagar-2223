@@ -1,12 +1,10 @@
 const DOM = {
   dashboardFavs: document.querySelector('.dashBoard_list'),
+  list: document.querySelector('.list'),
   delete: document.querySelector('.delete'),
   start: document.querySelector('.start'),
   stop: document.querySelector('.stop'),
   clearAll: document.querySelector('.clearAll'),
-
-  list: document.querySelector('.list'),
-
 
   buttonsBackground: document.querySelectorAll('.sound__background'),
   searchs: document.querySelector('#inpSearch'),
@@ -17,6 +15,7 @@ const DOM = {
   msg: document.querySelector('#lblMsg'),
   email: document.querySelector('.email')
 };
+
 
 let currentAudio = null;
 let infos = [];
@@ -52,7 +51,8 @@ function showImageTime(index, dashBoard) {
   if (dashBoard) {
     sound = savedSounds[index];
   }
-  else {
+  else 
+  {
     sound = infos[index];
   }
   DOM.durations.textContent = Math.round(sound.duration);
@@ -76,7 +76,7 @@ if (DOM.searchs) {
     }
   });
 
-  DOM.searchs.addEventListener('keyup', async (event) => {
+  DOM.searchs.addEventListener('keyup', async(event) => {
     if (event.key == 'Enter') {
       event.preventDefault();
       const searchTerm = DOM.searchs.value;
@@ -104,7 +104,7 @@ function playSound(sound) {
     currentAudio.pause();
   }
   currentAudio = audio;
-  audio.addEventListener('timeupdate', function () {
+  audio.addEventListener('timeupdate', function() {
     const minutes = Math.floor(audio.currentTime / 60);
     const seconds = Math.floor(audio.currentTime % 60);
     const durationMinutes = Math.floor(duration / 60);
@@ -116,7 +116,7 @@ function playSound(sound) {
 }
 
 DOM.buttons.forEach((button, i) => {
-  button.addEventListener('click', function () {
+  button.addEventListener('click', function() {
     const sound = infos[i];
     DOM.buttons.forEach((clicked) => {
       if (clicked != this) {
@@ -139,7 +139,6 @@ DOM.buttons.forEach((button, i) => {
   });
 });
 
-// 
 savedSounds.forEach((sound, index) => {
   createLi(sound, index, DOM.list);
   startButton(sound);
@@ -153,17 +152,21 @@ DOM.favoriten.forEach((fav) => {
     e.preventDefault();
     const index = parseInt(e.target.parentNode.getAttribute('data-index'));
     const sound = infos[index];
+
+    // Check if sound is already saved in the dashboard
+    const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
     for (let i = 0; i < savedSounds.length; i++) {
       if (savedSounds[i].id == sound.id) {
         console.log('Sound already in dashboard');
-        return;
+      return;
       }
     }
     savedSounds.push(sound);
-    localStorage.setItem('savedSounds', JSON.stringify(savedSounds) || []);
+    localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
     createLi(sound, index, DOM.dashboardFavs.firstElementChild);
     startButton(sound);
     stopButton(sound);
+    showImageTime(index, false);
   });
 });
 
@@ -173,7 +176,7 @@ DOM.delete.addEventListener('click', function() {
     const itemName = item.textContent;
     const index = savedSounds.indexOf(itemName);
     savedSounds.splice(index, 1);
-    localStorage.setItem('savedSounds', JSON.stringify(savedSounds) || []);
+    localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
     item.remove();
     if (currentAudio != null) {
       currentAudio.pause();
@@ -197,9 +200,6 @@ function createLi(sound, index, appendList) {
 
 function startButton(sound) {
   DOM.start.addEventListener('click', function() {
-    if (currentAudio !== null && currentAudio.src === sound.previews[preview]) {
-      return;
-    }
     playSound(sound);
   });
 }
@@ -209,7 +209,7 @@ function stopButton(sound) {
     if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
       currentAudio.pause();
       currentAudio = null;
-      DOM.list.querySelectorAll('.selected').forEach(function (li) {
+      DOM.list.querySelectorAll('.selected').forEach(function(li) {
         li.classList.remove('background');
       });
     }
@@ -217,6 +217,7 @@ function stopButton(sound) {
 }
 
 DOM.clearAll.addEventListener('click', function() {
+  DOM.list.innerHTML = '';
   localStorage.clear();
 });
 
