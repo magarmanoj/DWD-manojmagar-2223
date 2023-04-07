@@ -86,7 +86,6 @@ if (DOM.searchs) {
         DOM.msg.textContent = 'Geef een zoekterm in';
       }
       await getStatus(searchTerm);
-      DOM.searchs.value = '';
       DOM.buttons.forEach(button => button.classList.remove('active'));
       if (currentAudio) {
         currentAudio.pause();
@@ -168,6 +167,9 @@ DOM.dashboardFavs.appendChild(DOM.list);
 DOM.favoriten.forEach((fav) => {
   fav.addEventListener('click', function(e) {
     e.preventDefault();
+    if (DOM.searchs.value == '') {
+      return;
+    }
     const index = parseInt(e.target.parentNode.getAttribute('data-index'));
     const sound = infos[index];
 
