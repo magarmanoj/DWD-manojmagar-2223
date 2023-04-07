@@ -121,12 +121,12 @@ DOM.buttons.forEach((button, i) => {
       playSound(sound);
     }
 
-
     // false want dit is geen dashboard.
     showImageTime(i, false, savedSounds);
   });
 });
 
+// localstorage data in dashboard after refreshing the page
 savedSounds.forEach((sound, index) => {
   createLi(sound, index, DOM.list, true);
 });
@@ -261,11 +261,8 @@ function searchBar() {
 if (DOM.searchs) {
   DOM.searchs.addEventListener('input', () => {
     const searchTerm = DOM.searchs.value;
-    if (searchTerm == '') {
-      DOM.msg.textContent = 'Geef een zoekterm in';
-    } else {
-      DOM.msg.textContent = '';
-    }
+    if (searchTerm == '') return DOM.msg.textContent = 'Geef een zoekterm in';
+    DOM.msg.textContent = '';
   });
 
   DOM.searchs.addEventListener('keyup', (e) => {
@@ -283,7 +280,7 @@ if (DOM.btnSearch) {
   });
 }
 
-// extra redrict to email
+// extra redrict to email and api random gif
 DOM.email.addEventListener('click', function() {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';
 });
@@ -299,9 +296,9 @@ async function getRandomGif() {
 
   if (!resp.ok) return console.log('Request failed');
   const data = await resp.json();
-  console.log(data);
+  const rnd = Math.floor(Math.random() * data.data.length);
 
-  const gifUrl = data.data[Math.floor(Math.random() * data.data.length)].images.original.url;
+  const gifUrl = data.data[rnd].images.original.url;
   DOM.randomGif.innerHTML = `<img src="${gifUrl}">`;
   setTimeout(() => {
     DOM.randomGif.innerHTML = '';
