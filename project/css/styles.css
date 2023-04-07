@@ -4,18 +4,23 @@
   padding: 0;
 }
 
+
 body {
   color: #333;
   font-family: Arial, Helvetica, sans-serif;
 }
 
+html {
+  background-color: black;
+}
 /* ==========
 Container 
 =============*/
 .container {
-  background-color: #f9f9f9;
+  background-color: #202124;
   border: 1px solid black;
   border-radius: 0.5rem;
+  box-shadow: 15px 15px 20px rgba(116, 113, 113, 0.5);
   margin: 0 auto;
   max-width: 75%;
   padding: 1rem;
@@ -40,7 +45,7 @@ navigation
 
 
 .navigation a {
-  color: #333;
+  color: white;
   text-decoration: none;
 }
 
@@ -73,9 +78,10 @@ main sections
 dashboard container
 ============================*/
 .dashboardContainer {
-  background-color: #f9f9f9;
+  background-color: rgba(80, 80, 80, 0.5);
   border: 1px solid black;
   border-radius: 0.5rem;
+  color: white;
   margin-bottom: 2rem;
   padding: 1rem;
   width: 100%;
@@ -91,6 +97,19 @@ dashboard container
   overflow: auto;
   padding-top: 1rem;
 }
+
+.randomGif {
+  overflow: hidden;
+  width: 100%;
+  height: 15rem;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.randomGif.hidden{
+  display: none;
+}
+
 
 .selected {
   list-style: none;
@@ -114,16 +133,23 @@ msgError
 
 .msgError{
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
-.clearAll,
-.delete,
-.start,
-.stop {
-  float: right;
+.start,.stop,.delete,.clearAll{
+  color: #202124;
+  border:1px black;
+  border-radius:0.4rem;
   height: 2em;
+  margin-left: 0.2rem;
   width: 5em;
+}
+
+.start:hover,.stop:hover,.delete:hover , .clearAll:hover {
+  cursor: pointer;
+  transform: scale(1.5);
 }
 
 #lblMsg {
@@ -139,6 +165,7 @@ search bar
 ===============*/
 #frmSearch {
   align-items: center;
+  color:white;
   display: flex;
   width: 100%;
 }
@@ -147,6 +174,7 @@ search bar
   border: 2px solid #ccc;
   border-radius: 0.5rem;
   padding: 0.2rem;
+  margin-left: 0.1rem;
 }
 
 .btnSearch:hover {
@@ -174,6 +202,10 @@ section middle
 .section_middle{
   display: block;
 }
+
+.hidden{
+  display: none;
+}
 /*=====================
 sound buttons
 =========================*/
@@ -187,27 +219,18 @@ sound buttons
 }
 
 .sound {
-  height: 94px;
+  height: 50px;
   margin-bottom: 10px;
   overflow: hidden;
   position: relative;
   width: 94px;
 }
 
-.sound__background {
-  border-radius: 50%;
-  height: 94px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 94px;
-}
-
 .sound__button {
-  background: url(../img/button_normal.webp) no-repeat;
+  background: url(../img/play.png) no-repeat;
   border: 0;
   cursor: pointer;
-  height: 94px;
+  height: 100px;
   left: 0;
   position: absolute;
   top: 0;
@@ -215,17 +238,9 @@ sound buttons
 }
 
 .sound__button.active {
-  background: url(../img/button_down.webp) no-repeat;
+  background: url(../img/stop.png) no-repeat;
 }
 
-.sound__background {
-  border-radius: 50%;
-  height: 94px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 94px;
-}
 
 .sound-time {
   color: #888;
@@ -262,15 +277,20 @@ favorite
 }
 
 .fav_icon {
-  display: block;
   border: transparent;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  display: block;
   margin-left: 75px;
+
 }
 
 .fav_icon:hover {
-  background-color: grey;
-  transform: scale(1.1);
+  transform: scale(1.5);
 }
+
+
 
 /*=============
 footer
@@ -281,7 +301,7 @@ footer {
 }
 
 footer a {
-  color: #333;
+  color:white;
   text-decoration: underline;
 }
 
@@ -306,7 +326,7 @@ footer a:hover {
     display: block;
   }
   .fav_icon {
-    margin: 4em 0 5em 0;
+    margin: 0 0 3em 0;
   }
 }
 

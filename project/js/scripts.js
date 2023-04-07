@@ -8,15 +8,19 @@ const DOM = {
   stop: document.querySelector('.stop'),
   clearAll: document.querySelector('.clearAll'),
 
+  sectionMiddle:document.querySelector('.section_middle'),
+
   buttonsBackground: document.querySelectorAll('.sound__background'),
   searchs: document.querySelector('#inpSearch'),
   btnSearch: document.querySelector('.btnSearch'),
   buttons: document.querySelectorAll('.sound__button'),
-  favoriten: document.querySelectorAll('.fav_icon'),
+  favoriten: document.querySelectorAll('.favorite'),
   durations: document.querySelector('.sound-time'),
   wave: document.querySelector('.sound-waveform'),
   msg: document.querySelector('#lblMsg'),
-  email: document.querySelector('.email')
+  email: document.querySelector('.email'),
+
+  randomGif: document.querySelector('.randomGif')
 };
 
 let currentAudio = null;
@@ -25,11 +29,8 @@ const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
 const preview = 'preview-hq-mp3';
 const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
 
-DOM.buttonsBackground.forEach((button) => {
-  // eslint-disable-next-line no-magic-numbers
-  const bgcolor = `rgb(${+Math.random() * 255}, ${+Math.random() * 255}, ${+Math.random() * 255})`;
-  button.style.backgroundColor = bgcolor;
-});
+DOM.sectionMiddle.classList.add('hidden');
+DOM.randomGif.classList.add('hidden');
 
 // van FreeSound API geluiden opvragen
 async function getStatus(search) {
@@ -48,7 +49,7 @@ async function getStatus(search) {
   return infos;
 }
 
-function showImageTime(index, dashBoard) {
+function showImageTime(index, dashBoard, savedSounds) {
   const sound = dashBoard ? savedSounds[index] : infos[index];
 
   DOM.durations.textContent = Math.round(sound.duration);
@@ -98,6 +99,8 @@ function playSound(sound) {
         console.error('Error playing audio after retry:', error);
       });
   }
+  DOM.randomGif.classList.remove('hidden');
+  getRandomGif();
 }
 
 DOM.buttons.forEach((button, i) => {
@@ -118,47 +121,53 @@ DOM.buttons.forEach((button, i) => {
       playSound(sound);
     }
 
+
     // false want dit is geen dashboard.
-    showImageTime(i, false);
+    showImageTime(i, false, savedSounds);
   });
 });
 
 savedSounds.forEach((sound, index) => {
-  createLi(sound, index, DOM.list);
+  createLi(sound, index, DOM.list, true);
 });
 DOM.dashboardFavs.appendChild(DOM.list);
 
 // favorite
-DOM.favoriten.forEach((fav) => {
-  fav.addEventListener('click', function(e) {
-    e.preventDefault();
-    if (DOM.searchs.value == '') return; 
-    const index = parseInt(e.target.parentNode.getAttribute('data-index'));
-    const sound = infos[index];
+document.querySelector('.favorite').addEventListener('click', function(e) { 
+  if (!e.target.classList.contains('material-symbols-outlined')) return;
+  const btnFav = e.target;
+  e.preventDefault();
 
-    // Check if sound is already saved in the dashboard
-    const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
-    for (let i = 0; i < savedSounds.length; i++) {
-      if (savedSounds[i].id == sound.id) {
-        console.log('Sound already in dashboard');
+  if (DOM.searchs.value == '') return; 
+  const index = parseInt(btnFav.getAttribute('data-index'));
+  const sound = infos[index];
+
+  // Check if sound is already saved in the dashboard
+  const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
+  for (let i = 0; i < savedSounds.length; i++) {
+    if (savedSounds[i].id == sound.id) {
+      console.log('Sound already in dashboard');
       return;
-      }
     }
-    savedSounds.push(sound);
-    localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
-    createLi(sound, index, DOM.dashboardFavs.firstElementChild);
-    showImageTime(index, false);
-    togglePlayButton();
-  });
+  }
+  savedSounds.push(sound);
+  localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
+  createLi(sound, index, document.querySelector('.list'), false);
+  showImageTime(index, false, savedSounds);
+  togglePlayButton();
 });
 
-function createLi(sound, index, appendList) {
+function createLi(sound, index, appendList, dashBoard) {
   const li = document.createElement('li');
   li.textContent = sound.name;
   li.classList.toggle('selected');
   li.addEventListener('click', function() {
     li.classList.toggle('background');
-    showImageTime(index, true);
+    if (dashBoard) {
+      showImageTime(index, true, savedSounds);
+    } else {
+      showImageTime(index, false, infos);
+    }
     startButton(sound);
     stopButton(sound);
     togglePlayButton();
@@ -182,6 +191,8 @@ function stopButton(sound) {
         li.classList.remove('background');
       });
     }
+    DOM.randomGif.classList.add('hidden');
+    removeGif();
   });
 }
 
@@ -201,11 +212,14 @@ DOM.delete.addEventListener('click', function() {
     DOM.durations.classList.add('hidden');
   });
   selectedItems.length = 0;
-  togglePlayButton();
+  DOM.randomGif.classList.add('hidden');
+  removeGif();
 });
 
 DOM.clearAll.addEventListener('click', function() {
   DOM.list.textContent = '';
+  DOM.randomGif.classList.add('hidden');
+  removeGif();
 
   // want als je gwn localStorage.clear(); en er is geen items meer wordt het localStorage null wat later error geeft
   if (localStorage.getItem('savedSounds') != null) {
@@ -240,6 +254,7 @@ function searchBar() {
         currentAudio.pause();
         currentAudio = null;
       }
+      DOM.sectionMiddle.classList.remove('hidden');
     }
 }
 
@@ -273,6 +288,26 @@ DOM.email.addEventListener('click', function() {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';
 });
 
+const apiKeyGiphy = '7nqMzUz44OfqKOghBu5edOL7hw63QUS6';
 
-// GIVING NULL CUZ NO VALUE WAS GIVEN IN SERACH BAR SO IF U CLICK FAVORITE YOU GET ERROR
-// REMOVE  == RESET THE SELECTED LENGTH 
+async function getRandomGif() {
+  const timer = 5000;
+  const search = 'dancing';
+  const limit = 50;
+  const url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKeyGiphy}&q=${search}&limit=${limit}`;
+  const resp = await fetch(url);
+
+  if (!resp.ok) return console.log('Request failed');
+  const data = await resp.json();
+  console.log(data);
+
+  const gifUrl = data.data[Math.floor(Math.random() * data.data.length)].images.original.url;
+  DOM.randomGif.innerHTML = `<img src="${gifUrl}">`;
+  setTimeout(() => {
+    DOM.randomGif.innerHTML = '';
+  }, timer);
+}
+
+function removeGif() {
+  DOM.randomGif.innerHTML = '';
+}
