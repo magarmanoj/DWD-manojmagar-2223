@@ -124,7 +124,7 @@ dashboard container
 #lblMsgList {
   color: red;
   float: left;
-  width: 17em;
+  width: 21em;
 }
 
 /*===================
@@ -343,6 +343,21 @@ footer a:hover {
   }
   .searchBar {
     display: block;
+  }
+  .msgError {
+    display: block;
+  }
+  #lblMsgList {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media(max-width:380px){
+  #lblMsgList {
+    width:15em;
+  }
+  footer {
+    font-size: small;
   }
 }
 
