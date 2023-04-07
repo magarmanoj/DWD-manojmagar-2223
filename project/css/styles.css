@@ -31,11 +31,13 @@ Container
 navigation 
 ===================*/
 .container header {
+  align-items: center;
   display: flex;
   justify-content: space-between;
   margin: 0 1rem 2rem 0;
   padding: 1rem;
 }
+
 
 .navigation a {
   color: #333;
@@ -74,7 +76,6 @@ dashboard container
   background-color: #f9f9f9;
   border: 1px solid black;
   border-radius: 0.5rem;
-  height: 25rem;
   margin-bottom: 2rem;
   padding: 1rem;
   width: 100%;
@@ -82,15 +83,6 @@ dashboard container
 
 .background {
   background-color: grey;
-}
-
-.clearAll,
-.delete,
-.start,
-.stop {
-  float: right;
-  height: 2em;
-  width: 5em;
 }
 
 .dashBoard_list {
@@ -116,6 +108,32 @@ dashboard container
   width: 17em;
 }
 
+/*===================
+msgError
+================*/
+
+.msgError{
+  display: flex;
+  justify-content: space-between;
+}
+
+.clearAll,
+.delete,
+.start,
+.stop {
+  float: right;
+  height: 2em;
+  width: 5em;
+}
+
+#lblMsg {
+  align-items: end;
+  color: red;
+  font-weight: lighter;
+  padding-top: 0.5em;
+  width: 35%;
+}
+
 /*=============
 search bar
 ===============*/
@@ -135,14 +153,6 @@ search bar
   background-color: gray;
 }
 
-#lblMsg {
-  align-items: end;
-  color: red;
-  font-weight: lighter;
-  padding-top: 0.5em;
-  width: 35%;
-}
-
 .searchBar {
   align-items: center;
   display: flex;
@@ -158,7 +168,12 @@ search bar
   width: 50%;
 }
 
-
+/*===============
+section middle
+=================*/
+.section_middle{
+  display: block;
+}
 /*=====================
 sound buttons
 =========================*/
@@ -247,6 +262,7 @@ favorite
 }
 
 .fav_icon {
+  display: block;
   border: transparent;
   margin-left: 75px;
 }
@@ -271,4 +287,52 @@ footer a {
 
 footer a:hover {
   color: red;
+}
+
+
+/* ===========================================
+   Media queries
+   =========================================== */
+
+@media(max-width: 650px){
+  .soundwrapper {
+    display: block;
+  }
+  .section_middle {
+    display: flex;
+    max-width: 100%;
+  }
+  .favorite {
+    display: block;
+  }
+  .fav_icon {
+    margin: 4em 0 5em 0;
+  }
+}
+
+@media(max-width:510px) {
+  .container header {
+    display: block;
+  }
+  .container {
+    max-width: 90%;
+  }
+  .navigation ul {
+    display: flex;
+    justify-content: space-around;
+  }
+  .searchBar {
+    display: block;
+  }
+}
+
+@media(max-width:320px) {
+  .navigation ul {
+    display: block;
+    text-align: center;
+  }
+  .logo{
+    margin: 0 auto 1em auto;
+    display: block;
+  }
 }

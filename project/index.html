@@ -30,11 +30,15 @@
                 <div class="dashBoard_list">
                     <ul class="list"></ul>
                 </div>
-                <p id="lblMsgList"></p>
-                <button class="clearAll">Clear All</button>
-                <button class="delete">Remove</button>
-                <button class="stop">Stop</button>
-                <button class="start">Play</button>
+                <div class="msgError"> 
+                    <p id="lblMsgList"></p>
+                    <div>
+                        <button class="clearAll">Clear All</button>
+                        <button class="delete">Remove</button>
+                        <button class="stop">Stop</button>
+                        <button class="start">Play</button>  
+                    </div>                  
+                </div>
             </div>
             <div class="middle_section">
                 <div class="searchBar">
@@ -90,12 +94,10 @@
                             </span>
                         </button>
                     </div>
-
-                    <div class="sound__details">
-                        <img class="sound-waveform hidden" src="" alt="Waveform image">
-                        <span class="sound-time hidden"></span>
-                    </div>
-
+                </div>
+                <div class="sound__details">
+                    <img class="sound-waveform hidden" src="" alt="Waveform image">
+                    <span class="sound-time hidden"></span>
                 </div>
             </div>
         </main>

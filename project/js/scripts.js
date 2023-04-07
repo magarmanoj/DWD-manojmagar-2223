@@ -19,7 +19,6 @@ const DOM = {
   email: document.querySelector('.email')
 };
 
-
 let currentAudio = null;
 let infos = [];
 const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
@@ -88,9 +87,9 @@ function playSound(sound) {
   // https://developer.chrome.com/blog/play-request-was-interrupted/
   const playPromise = currentAudio.play();
 
-  if (playPromise !== undefined) {
+  if (playPromise != undefined) {
     playPromise.catch((error) => {
-        if (error.name === 'AbortError') {
+        if (error.name == 'AbortError') {
           // Als de fout een "AbortError" is, probeer dan opnieuw het geluid af te spelen
           return currentAudio.play();
         }
@@ -231,7 +230,7 @@ function togglePlayButton() {
 // search bar
 function searchBar() {
   const searchTerm = DOM.searchs.value;
-    if (searchTerm === '') {
+    if (searchTerm == '') {
       DOM.msg.textContent = 'Geef een zoekterm in';
     } else {
       DOM.msg.textContent = '';
@@ -247,7 +246,7 @@ function searchBar() {
 if (DOM.searchs) {
   DOM.searchs.addEventListener('input', () => {
     const searchTerm = DOM.searchs.value;
-    if (searchTerm === '') {
+    if (searchTerm == '') {
       DOM.msg.textContent = 'Geef een zoekterm in';
     } else {
       DOM.msg.textContent = '';
