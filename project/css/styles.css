@@ -20,7 +20,7 @@ Container
   background-color: #202124;
   border: 1px solid black;
   border-radius: 0.5rem;
-  box-shadow: 15px 15px 20px rgba(116, 113, 113, 0.5);
+  box-shadow: 15px 15px 20px rgba(146, 140, 140, 0.5);
   margin: 0 auto;
   max-width: 75%;
   padding: 1rem;
@@ -69,7 +69,6 @@ navigation
 /*=====================
 main sections
 ======================*/
-.dashboardContainer,
 .middle_section {
   margin-bottom: 2rem;
 }
@@ -139,9 +138,10 @@ msgError
 }
 
 .start,.stop,.delete,.clearAll{
-  color: #202124;
   border:1px black;
-  border-radius:0.4rem;
+  border-radius:0.4rem;  
+  box-shadow: 5px 5px 5px rgba(174, 164, 164, 0.5);
+  color: #202124;
   height: 2em;
   margin-left: 0.2rem;
   width: 5em;
@@ -173,12 +173,14 @@ search bar
 .btnSearch {
   border: 2px solid #ccc;
   border-radius: 0.5rem;
+  box-shadow: 5px 5px 10px rgba(129, 128, 128, 0.5);
   padding: 0.2rem;
-  margin-left: 0.1rem;
+  margin-left: 0.5rem;
 }
 
 .btnSearch:hover {
   background-color: gray;
+  transform: scale(1.2);
 }
 
 .searchBar {
@@ -190,6 +192,7 @@ search bar
 .searchBar input[type="text"] {
   border: 2px solid #ccc;
   border-radius: 0.5rem;
+  box-shadow: 5px 5px 10px rgba(187, 184, 184, 0.5);
   font-size: 1rem;
   margin-left: 1rem;
   padding: 0.5rem;
