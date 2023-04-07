@@ -23,6 +23,7 @@ let currentAudio = null;
 let infos = [];
 const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
 const preview = 'preview-hq-mp3';
+const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
 
 DOM.buttonsBackground.forEach((button) => {
   // eslint-disable-next-line no-magic-numbers
@@ -34,29 +35,56 @@ DOM.buttonsBackground.forEach((button) => {
 async function getStatus(search) {
   const url = `https://freesound.org/apiv2/search/text/?query=${search}&token=${apiKey}&fields=id,name,previews,duration,images`;
   const resp = await fetch(url);
+
   if (!resp.ok) return console.log('mislukt');
   const data = await resp.json();
   const eersteVierGeluiden = data.results.slice(0, 4);
+
   infos = [];
   for (let i = 0; i < eersteVierGeluiden.length; i++) {
     infos.push(eersteVierGeluiden[i]);
+    console.log(infos);
   }
   return infos;
+}
+
+function showImageTime(index, dashBoard) {
+  let sound;
+  if (dashBoard) {
+    sound = savedSounds[index];
+  }
+  else 
+  {
+    sound = infos[index];
+  }
+  DOM.durations.textContent = Math.round(sound.duration);
+  DOM.wave.src = sound.images.waveform_l;
+  if (dashBoard || infos.length > 0) {
+    DOM.wave.classList.remove('hidden');
+    DOM.durations.classList.remove('hidden');
+  } else {
+    DOM.wave.classList.add('hidden');
+  }
 }
 
 // search bar
 if (DOM.searchs) {
   DOM.searchs.addEventListener('input', () => {
     const searchTerm = DOM.searchs.value;
-    if (searchTerm == '') return DOM.msg.textContent = 'Geef een zoekterm in';
-    DOM.msg.textContent = '';
+    if (searchTerm === '') {
+      DOM.msg.textContent = 'Geef een zoekterm in';
+    } else {
+      DOM.msg.textContent = '';
+    }
   });
 
   DOM.searchs.addEventListener('keyup', async(event) => {
     if (event.key == 'Enter') {
       event.preventDefault();
       const searchTerm = DOM.searchs.value;
-      if (searchTerm == '') return DOM.msg.textContent = 'Geef een zoekterm in';
+      if (searchTerm === '') {
+        DOM.msg.textContent = 'Geef een zoekterm in';
+      }
       await getStatus(searchTerm);
       DOM.searchs.value = '';
       DOM.buttons.forEach(button => button.classList.remove('active'));
@@ -73,7 +101,6 @@ function playSound(sound) {
   const audio = new Audio(sound.previews[preview]);
   const duration = Math.round(sound.duration);
 
-  // al sound aan het spelen ==>  pasue ELSE currentAudio is audio (new sound)
   if (currentAudio != null) {
     currentAudio.pause();
     currentAudio.currentTime = 0;
@@ -91,12 +118,12 @@ function playSound(sound) {
     currentAudio = null;
   });
 
-  // https://developer.chrome.com/blog/play-request-was-interrupted/
   const playPromise = currentAudio.play();
-  if (playPromise != undefined) {
+
+  if (playPromise !== undefined) {
     playPromise
       .catch((error) => {
-        if (error.name == 'AbortError') {
+        if (error.name === 'AbortError') {
           // Als de fout een "AbortError" is, probeer dan opnieuw het geluid af te spelen
           return currentAudio.play();
         }
@@ -108,7 +135,6 @@ function playSound(sound) {
   }
 }
 
-
 DOM.buttons.forEach((button, i) => {
   button.addEventListener('click', function() {
     const sound = infos[i];
@@ -117,6 +143,7 @@ DOM.buttons.forEach((button, i) => {
         clicked.classList.remove('active');
       }
     });
+
     this.classList.toggle('active');
 
     // checks als er sound aan het spelen is en of het zelfde sound is dan vorige ==> pause ELSE playSound
@@ -132,23 +159,7 @@ DOM.buttons.forEach((button, i) => {
   });
 });
 
-function createLi(sound, index, appendList) {
-  const li = document.createElement('li');
-  li.textContent = sound.name;
-  li.classList.toggle('selected');
-  li.addEventListener('click', function() {
-    li.classList.toggle('background');
-    showImageTime(index, true);
-    togglePlayButton();
-    startButton(sound);
-    stopButton(sound);
-  });
-  appendList.appendChild(li);
-}
-
-const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
-savedSounds.forEach((savedSound, index) => {
-  const sound = JSON.parse(savedSound);
+savedSounds.forEach((sound, index) => {
   createLi(sound, index, DOM.list);
 });
 DOM.dashboardFavs.appendChild(DOM.list);
@@ -162,42 +173,51 @@ DOM.favoriten.forEach((fav) => {
 
     // Check if sound is already saved in the dashboard
     const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
-    console.log(savedSounds);
     for (let i = 0; i < savedSounds.length; i++) {
-      const savedSound = JSON.parse(savedSounds[i]);
-      if (savedSound.id == sound.id) {
+      if (savedSounds[i].id == sound.id) {
         console.log('Sound already in dashboard');
-        return;
+      return;
       }
     }
-    savedSounds.push(JSON.stringify(sound));
+    savedSounds.push(sound);
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
     createLi(sound, index, DOM.dashboardFavs.firstElementChild);
     showImageTime(index, false);
   });
 });
 
-function showImageTime(index, dashBoard) {
-  if (dashBoard) {
-    const sound = savedSounds[index];
-    const savedSoundArray = JSON.parse(sound);
-    DOM.durations.textContent = Math.round(savedSoundArray.duration);
-    DOM.wave.src = savedSoundArray.images.waveform_l;
-  }
-  else 
-  {
-    const sound = infos[index];
-    DOM.durations.textContent = Math.round(sound.duration);
-    DOM.wave.src = sound.images.waveform_l;
-  }
-  
-  if (dashBoard || infos.length > 0) {
-    DOM.wave.classList.remove('hidden');
-    DOM.durations.classList.remove('hidden');
-  } else {
+DOM.delete.addEventListener('click', function() {
+  const selectedItems = DOM.dashboardFavs.querySelectorAll('.background');
+  selectedItems.forEach(item => {
+    const itemName = item.textContent;
+    const index = savedSounds.indexOf(itemName);
+    savedSounds.splice(index, 1);
+    localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
+    item.remove();
+    if (currentAudio != null) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
     DOM.wave.classList.add('hidden');
-  }
+    DOM.durations.classList.add('hidden');
+    selectedItems.length = 0;
+  });
+});
+
+function createLi(sound, index, appendList) {
+  const li = document.createElement('li');
+  li.textContent = sound.name;
+  li.classList.toggle('selected');
+  li.addEventListener('click', function() {
+    li.classList.toggle('background');
+    showImageTime(index, true);
+    startButton(sound);
+    stopButton(sound);
+    togglePlayButton();
+  });
+  appendList.appendChild(li);
 }
+
 
 function startButton(sound) {
   DOM.start.addEventListener('click', function() {
@@ -261,3 +281,7 @@ function togglePlayButton() {
 DOM.email.addEventListener('click', function() {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';
 });
+
+
+// GIVING NULL CUZ NO VALUE WAS GIVEN IN SERACH BAR SO IF U CLICK FAVORITE YOU GET ERROR
+// REMOVE  == RESET THE SELECTED LENGTH 
