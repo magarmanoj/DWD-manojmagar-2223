@@ -184,7 +184,8 @@ DOM.favoriten.forEach((fav) => {
     savedSounds.push(sound);
     localStorage.setItem('savedSounds', JSON.stringify(savedSounds));
     createLi(sound, index, DOM.dashboardFavs.firstElementChild);
-    showImageTime(index, false);
+    showImageTime(index, true);
+    togglePlayButton();
   });
 });
 
@@ -254,6 +255,8 @@ DOM.delete.addEventListener('click', function() {
     DOM.wave.classList.add('hidden');
     DOM.durations.classList.add('hidden');
   });
+  selectedItems.length = 0;
+  togglePlayButton();
 });
 
 DOM.clearAll.addEventListener('click', function() {
