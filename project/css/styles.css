@@ -5,20 +5,20 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
   color: #333;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* ==========
 Container 
 =============*/
 .container {
-  border: 1px solid black;
   background-color: #f9f9f9;
-  padding: 1rem;
+  border: 1px solid black;
   border-radius: 0.5rem;
-  max-width: 75%;
   margin: 0 auto;
+  max-width: 75%;
+  padding: 1rem;
 }
 
 /* logo */
@@ -33,17 +33,8 @@ navigation
 .container header {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
   margin: 0 1rem 2rem 0;
-}
-
-.navigation ul {
-  list-style: none;
-  display: flex;
-}
-
-.navigation li {
-  margin-right: 1rem;
+  padding: 1rem;
 }
 
 .navigation a {
@@ -59,6 +50,15 @@ navigation
   font-weight: bold;
 }
 
+.navigation li {
+  margin-right: 1rem;
+}
+
+.navigation ul {
+  display: flex;
+  list-style: none;
+}
+
 /*=====================
 main sections
 ======================*/
@@ -71,76 +71,91 @@ main sections
 dashboard container
 ============================*/
 .dashboardContainer {
-  border: 1px solid black;
   background-color: #f9f9f9;
-  padding: 1rem;
+  border: 1px solid black;
   border-radius: 0.5rem;
   height: 25rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
   width: 100%;
-}
-
-.dashBoard_list{
-  padding-top: 1rem;
-  margin-bottom: 0.3em;
-  height: 19rem;
-  overflow: auto;
-}
-
-.selected:hover {
-  background-color: grey;
-  cursor: pointer;
-}
-.selected {
-  list-style: none;
-  margin-bottom: 0.6em;
 }
 
 .background {
   background-color: grey;
 }
 
-.delete, .start, .stop, .clearAll{
+.clearAll,
+.delete,
+.start,
+.stop {
   float: right;
   height: 2em;
   width: 5em;
 }
 
-#lblMsgList{
+.dashBoard_list {
+  height: 19rem;
+  margin-bottom: 0.3em;
+  overflow: auto;
+  padding-top: 1rem;
+}
+
+.selected {
+  list-style: none;
+  margin-bottom: 0.6em;
+}
+
+.selected:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
+#lblMsgList {
+  color: red;
   float: left;
   width: 17em;
-  color:red;
 }
+
 /*=============
 search bar
 ===============*/
 #frmSearch {
-  display: flex;
   align-items: center;
+  display: flex;
   width: 100%;
 }
 
+.btnSearch {
+  border: 2px solid #ccc;
+  border-radius: 0.5rem;
+  padding: 0.2rem;
+}
+
+.btnSearch:hover {
+  background-color: gray;
+}
+
+#lblMsg {
+  align-items: end;
+  color: red;
+  font-weight: lighter;
+  padding-top: 0.5em;
+  width: 35%;
+}
+
 .searchBar {
-  display: flex;
   align-items: center;
+  display: flex;
   margin-bottom: 2rem;
 }
 
 .searchBar input[type="text"] {
-  padding: 0.5rem;
   border: 2px solid #ccc;
   border-radius: 0.5rem;
   font-size: 1rem;
-  width: 50%;
   margin-left: 1rem;
-}
-
-
-#lblMsg {
-  width: 35%;
-  align-items: end;
-  color:red;
-  font-weight:lighter;
-  padding-top:0.5em;
+  padding: 0.5rem;
+  width: 50%;
 }
 
 
@@ -148,7 +163,7 @@ search bar
 sound buttons
 =========================*/
 .soundwrapper {
-  align-items: center;   
+  align-items: center;
   display: flex;
   flex-direction: row;
   padding: 10px;
@@ -163,6 +178,16 @@ sound buttons
   position: relative;
   width: 94px;
 }
+
+.sound__background {
+  border-radius: 50%;
+  height: 94px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 94px;
+}
+
 .sound__button {
   background: url(../img/button_normal.webp) no-repeat;
   border: 0;
@@ -187,51 +212,49 @@ sound buttons
   width: 94px;
 }
 
+.sound-time {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.sound-time.hidden {
+  display: none;
+}
+
 .sound-waveform {
+  background-color: #f5f5f5;
   display: block;
   height: 50px;
+  margin-bottom: 10px;
   width: 100%;
-  background-color: #f5f5f5;
-  margin-bottom: 10px;
 }
+
 .sound-waveform.hidden {
-  display: none; 
-}
-.sound-time.hidden {
-  display: none; 
-}
-
-
-.sound-time {
-  font-size: 14px;
-  color: #888;
-  margin-bottom: 10px;
+  display: none;
 }
 
 /*=================
 favorite
 ==================*/
 
-.favorite{
+.favorite {
   align-items: center;
   display: flex;
-  padding: 10px;
-  display: flex;
   justify-content: space-between;
+  padding: 10px;
   width: 100%;
 }
 
 .fav_icon {
-  margin-left: 75px;
   border: transparent;
+  margin-left: 75px;
 }
 
 .fav_icon:hover {
-  transform: scale(1.1);
   background-color: grey;
+  transform: scale(1.1);
 }
-
-
 
 /*=============
 footer
