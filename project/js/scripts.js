@@ -29,6 +29,7 @@ const apiKey = '2NyW7omHomOYDbyvmxizDsTZxSRLdgxH1JscuTKD';
 const preview = 'preview-hq-mp3';
 const savedSounds = JSON.parse(localStorage.getItem('savedSounds')) || [];
 
+// add hidden css to sectionMiddle or randomGIF
 DOM.sectionMiddle.classList.add('hidden');
 DOM.randomGif.classList.add('hidden');
 
@@ -49,6 +50,7 @@ async function getStatus(search) {
   return infos;
 }
 
+// shows the Images depending on whether its in dashboard or not 
 function showImageTime(index, dashBoard, savedSounds) {
   const sound = dashBoard ? savedSounds[index] : infos[index];
 
@@ -103,6 +105,7 @@ function playSound(sound) {
   getRandomGif();
 }
 
+// Eventlistener to buttons and toggle active 
 DOM.buttons.forEach((button, i) => {
   button.addEventListener('click', function() {
     const sound = infos[i];
@@ -157,6 +160,7 @@ document.querySelector('.favorite').addEventListener('click', function(e) {
   togglePlayButton();
 });
 
+// creates a li in ul for the dashboard list
 function createLi(sound, index, appendList, dashBoard) {
   const li = document.createElement('li');
   li.textContent = sound.name;
@@ -175,13 +179,14 @@ function createLi(sound, index, appendList, dashBoard) {
   appendList.appendChild(li);
 }
 
-
+// start button
 function startButton(sound) {
   DOM.start.addEventListener('click', function() {
     if (currentAudio == null || currentAudio.src != sound.previews[preview]) return playSound(sound);
   });
 }
 
+// stop button
 function stopButton(sound) {
   DOM.stop.addEventListener('click', function() {
     if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
@@ -196,6 +201,7 @@ function stopButton(sound) {
   });
 }
 
+// detele button
 DOM.delete.addEventListener('click', function() {
   const selectedItems = DOM.dashboardFavs.querySelectorAll('.background');
   selectedItems.forEach(item => {
@@ -216,6 +222,7 @@ DOM.delete.addEventListener('click', function() {
   removeGif();
 });
 
+// clear button
 DOM.clearAll.addEventListener('click', function() {
   DOM.list.textContent = '';
   DOM.randomGif.classList.add('hidden');
@@ -230,6 +237,7 @@ DOM.clearAll.addEventListener('click', function() {
   }
 });
 
+// check if more then 1 item is selected in dashboard or none
 function togglePlayButton() {
   const selectedItems = DOM.list.querySelectorAll('.background');
   if (selectedItems.length == 1) {
@@ -285,6 +293,8 @@ DOM.email.addEventListener('click', function() {
   window.location.href = 'mailto:manoj.magar@student.odisee.be';
 });
 
+
+// get a random dancing GIF
 const apiKeyGiphy = '7nqMzUz44OfqKOghBu5edOL7hw63QUS6';
 
 async function getRandomGif() {
