@@ -85,6 +85,9 @@ function playSound(sound) {
   });
   audio.addEventListener('ended', function() {
     currentAudio = null;
+
+    // removes gif wanneer er geen geluiden meer afgespeeld is of klaar is 
+    removeGif();
   });
 
   // https://developer.chrome.com/blog/play-request-was-interrupted/
@@ -120,6 +123,7 @@ DOM.buttons.forEach((button, i) => {
     if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
       currentAudio.pause();
       currentAudio = null;
+      removeGif();
     } else {
       playSound(sound);
     }
@@ -141,7 +145,7 @@ document.querySelector('.favorite').addEventListener('click', function(e) {
   const btnFav = e.target;
   e.preventDefault();
 
-  if (DOM.searchs.value == '') return; 
+  if (infos == '') return; 
   const index = parseInt(btnFav.getAttribute('data-index'));
   const sound = infos[index];
 
@@ -298,7 +302,6 @@ DOM.email.addEventListener('click', function() {
 const apiKeyGiphy = '7nqMzUz44OfqKOghBu5edOL7hw63QUS6';
 
 async function getRandomGif() {
-  const timer = 5000;
   const search = 'dancing';
   const limit = 50;
   const url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKeyGiphy}&q=${search}&limit=${limit}`;
@@ -310,11 +313,10 @@ async function getRandomGif() {
 
   const gifUrl = data.data[rnd].images.original.url;
   DOM.randomGif.innerHTML = `<img src="${gifUrl}">`;
-  setTimeout(() => {
-    DOM.randomGif.innerHTML = '';
-  }, timer);
 }
 
 function removeGif() {
   DOM.randomGif.innerHTML = '';
+  DOM.randomGif.classList.add('hidden');
 }
+
