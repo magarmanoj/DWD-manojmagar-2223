@@ -119,19 +119,30 @@ DOM.buttons.forEach((button, i) => {
     });
     this.classList.toggle('active');
 
-    // checks als er sound aan het spelen is en of het zelfde sound is dan vorige ==> pause ELSE playSound
-    if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
-      currentAudio.pause();
-      currentAudio = null;
-      removeGif();
-    } else {
-      playSound(sound);
-    }
+    // check if the button is toggled on before playing the sound
+    if (this.classList.contains('active')) {
+      // check if there is currently a sound playing and if it is the same as the one associated with the clicked button
+      if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
+        currentAudio.pause();
+        currentAudio = null;
+        removeGif();
+      } else {
+        playSound(sound);
+      }
 
-    // false want dit is geen dashboard.
-    showImageTime(i, false, savedSounds);
+      // false because this is not a dashboard.
+      showImageTime(i, false, savedSounds);
+    } else {
+      // if the button is toggled off, pause the sound and remove any associated GIF
+      if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
+        currentAudio.pause();
+        currentAudio = null;
+        removeGif();
+      }
+    }
   });
 });
+
 
 // localstorage data in dashboard after refreshing the page
 savedSounds.forEach((sound, index) => {
