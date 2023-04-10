@@ -85,6 +85,10 @@ function playSound(sound) {
   });
   audio.addEventListener('ended', function() {
     currentAudio = null;
+    
+    // removes the active class after sound is finished playing
+    const activeButton = document.querySelector('.active');
+    if (activeButton) activeButton.classList.remove('active');
 
     // removes gif wanneer er geen geluiden meer afgespeeld is of klaar is 
     removeGif();
