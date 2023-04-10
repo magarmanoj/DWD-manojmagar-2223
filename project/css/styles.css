@@ -98,11 +98,12 @@ dashboard container
 }
 
 .randomGif {
-  overflow: hidden;
-  width: 100%;
-  height: 15rem;
   background-repeat: no-repeat;
   background-position: center;
+  height: 15rem;  
+  overflow: hidden;
+  width: 100%;
+
 }
 
 .randomGif.hidden{
@@ -131,10 +132,10 @@ msgError
 ================*/
 
 .msgError{
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
 }
 
 .start,.stop,.delete,.clearAll{
@@ -174,8 +175,8 @@ search bar
   border: 2px solid #ccc;
   border-radius: 0.5rem;
   box-shadow: 5px 5px 10px rgba(129, 128, 128, 0.5);
-  padding: 0.2rem;
   margin-left: 0.5rem;
+  padding: 0.2rem;
 }
 
 .btnSearch:hover {
@@ -216,8 +217,8 @@ sound buttons
   align-items: center;
   display: flex;
   flex-direction: row;
-  padding: 10px;
   justify-content: space-between;
+  padding: 10px;
   width: 100%;
 }
 
