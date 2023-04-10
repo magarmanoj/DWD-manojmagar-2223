@@ -85,7 +85,7 @@ function playSound(sound) {
   });
   audio.addEventListener('ended', function() {
     currentAudio = null;
-    
+
     // removes the active class after sound is finished playing
     const activeButton = document.querySelector('.active');
     if (activeButton) activeButton.classList.remove('active');
@@ -244,6 +244,10 @@ DOM.clearAll.addEventListener('click', function() {
   DOM.list.textContent = '';
   DOM.randomGif.classList.add('hidden');
   removeGif();
+  if (currentAudio != null) {
+    currentAudio.pause();
+    currentAudio = null;
+  }
 
   // want als je gwn localStorage.clear(); en er is geen items meer wordt het localStorage null wat later error geeft
   if (localStorage.getItem('savedSounds') != null) {
