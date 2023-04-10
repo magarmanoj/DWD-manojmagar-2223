@@ -134,11 +134,9 @@ DOM.buttons.forEach((button, i) => {
       showImageTime(i, false, savedSounds);
     } else {
       // if the button is toggled off, pause the sound and remove any associated GIF
-      if (currentAudio != null && currentAudio.src == sound.previews[preview]) {
         currentAudio.pause();
         currentAudio = null;
         removeGif();
-      }
     }
   });
 });
