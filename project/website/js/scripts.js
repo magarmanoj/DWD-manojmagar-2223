@@ -69,6 +69,7 @@ function showImageTime(index, dashBoard, savedSounds) {
 function playSound(sound) {
   const audio = new Audio(sound.previews[preview]);
   const duration = Math.round(sound.duration);
+  const zestig = 60;
 
   if (currentAudio != null) {
     currentAudio.pause();
@@ -76,10 +77,10 @@ function playSound(sound) {
   }
   currentAudio = audio;
   audio.addEventListener('timeupdate', function() {
-    const minutes = Math.floor(audio.currentTime / 60);
-    const seconds = Math.floor(audio.currentTime % 60);
-    const durationMinutes = Math.floor(duration / 60);
-    const durationSeconds = (duration % 60);
+    const minutes = Math.floor(audio.currentTime / zestig);
+    const seconds = Math.floor(audio.currentTime % zestig);
+    const durationMinutes = Math.floor(duration / zestig);
+    const durationSeconds = (duration % zestig);
 
     DOM.durations.textContent = `Time: ${minutes}:${seconds}s / ${durationMinutes}:${durationSeconds} s`;
   });
